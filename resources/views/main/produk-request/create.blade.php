@@ -5,7 +5,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-6">
-                        Tambah Produk Keluar
+                        Tambah Produk Masuk
                     </div>
                     <div class="col-6 d-flex align-items-center">
                         <div class="m-auto"></div>
@@ -16,25 +16,13 @@
                 </div>
             </div>
             <div class="card-body">
-                {{-- <div class="form-group row">
-                    <label for="nama" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
-                        Nama
-                    </label>
-                    <div class="col-lg-11">
-                        <select name="supplier_id" id="supplier_id" class="form-control supplier-id">
-                            @foreach ($supplier as $supplier)
-                                <option value="{{ $supplier->id }}">{{ $supplier->nama }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div> --}}
                 <div class="form-group row">
-                    <label for="tanggal_proses" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                    <label for="tanggal_request" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
                         Tanggal
                     </label>
                     <div class="col-lg-11">
-                        <input type="text" class="form-control tanggal_proses" name="tanggal_proses"
-                            id="tanggal_proses" placeholder="masukkan tanggal proses">
+                        <input type="text" class="form-control tanggal_request" name="tanggal_request"
+                            id="tanggal_request" placeholder="masukkan tanggal request">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -119,9 +107,6 @@
     </div>
 </div>
 
-<script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-
-{!! JsValidator::formRequest('App\Http\Requests\ProdukRequest', '#form') !!}
 
 <script>
     @if (session('status'))
@@ -133,7 +118,7 @@
     @endif
 
     var currentDate = new Date();
-    $('#tanggal_proses').datepicker({
+    $('#tanggal_request').datepicker({
         format: 'mm/dd/yyyy',
         autoclose: true,
         endDate: "currentDate",
@@ -141,7 +126,7 @@
     }).on('changeDate', function(ev) {
         $(this).datepicker('hide');
     });
-    $('#tanggal_proses').keyup(function() {
+    $('#tanggal_request').keyup(function() {
         if (this.value.match(/[^0-9]/g)) {
             this.value = this.value.replace(/[^0-9^-]/g, '');
         }

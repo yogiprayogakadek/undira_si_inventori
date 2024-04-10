@@ -5,7 +5,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-6">
-                        Tambah Produk Keluar
+                        Tambah Produk Masuk
                     </div>
                     <div class="col-6 d-flex align-items-center">
                         <div class="m-auto"></div>
@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="card-body">
-                {{-- <div class="form-group row">
+                <div class="form-group row">
                     <label for="nama" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
                         Nama
                     </label>
@@ -27,7 +27,7 @@
                             @endforeach
                         </select>
                     </div>
-                </div> --}}
+                </div>
                 <div class="form-group row">
                     <label for="tanggal_proses" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
                         Tanggal
@@ -119,9 +119,6 @@
     </div>
 </div>
 
-<script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-
-{!! JsValidator::formRequest('App\Http\Requests\ProdukRequest', '#form') !!}
 
 <script>
     @if (session('status'))

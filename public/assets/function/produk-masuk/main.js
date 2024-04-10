@@ -2,7 +2,7 @@ function getData() {
     localStorage.clear()
     $.ajax({
         type: "get",
-        url: "/produk-keluar/render",
+        url: "/produk-masuk/render",
         dataType: "json",
         success: function (response) {
             $(".render").html(response.data);
@@ -16,7 +16,7 @@ function getData() {
 function tambah() {
     $.ajax({
         type: "get",
-        url: "/produk-keluar/create",
+        url: "/produk-masuk/create",
         dataType: "json",
         success: function (response) {
             $(".render").html(response.data);
@@ -122,7 +122,7 @@ $(document).ready(function () {
         };
         $.ajax({
             type: "get",
-            url: "/produk-keluar/edit/" + id,
+            url: "/produk-masuk/edit/" + id,
             dataType: "json",
             success: function (response) {
                 $(".render").html(response.data);
@@ -161,10 +161,11 @@ $(document).ready(function () {
         } else {
             $.ajax({
                 type: "POST",
-                url: "/produk-keluar/store",
+                url: "/produk-masuk/store",
                 data: {
                     'tanggal_proses': tanggal_proses,
                     'list_produk': localStorage.getItem('listProduk'),
+                    'supplier_id': $('#supplier_id').find(":selected").val(),
                 },
                 // data: data,
                 // processData: false,
@@ -205,11 +206,12 @@ $(document).ready(function () {
         } else {
             $.ajax({
                 type: "POST",
-                url: "/produk-keluar/update",
+                url: "/produk-masuk/update",
                 data: {
                     'tanggal_proses': tanggal_proses,
                     'list_produk': localStorage.getItem('listProduk'),
-                    'produk_keluar_id': $('input[name=produk_keluar_id]').val()
+                    'produk_masuk_id': $('input[name=produk_masuk_id]').val(),
+                    'supplier_id': $('#supplier_id').find(":selected").val(),
                 },
                 // data: data,
                 // processData: false,
@@ -241,7 +243,7 @@ $(document).ready(function () {
     //     $('#modalProduk').modal('show')
     //     $('#modalTable tbody').empty();
 
-    //     $.get("/produk-keluar/list-produk", function (data) {
+    //     $.get("/produk-masuk/list-produk", function (data) {
     //         $.each(data, function (index, value) {
     //             let tr_list = '<tr>' +
     //                 '<td class="text-center"> '+ '<input type="checkbox" class="checkbox-secondary checkbox-produk" id="checkbox '+value.id+'" name="list[]" data-id="'+value.id+'" data-nama="'+value.nama+'">' +' </td>' +
@@ -266,7 +268,7 @@ $(document).ready(function () {
             $('.btn-temp').attr('disabled', true)
         }
 
-        $.get("/produk-keluar/list-produk", function(data) {
+        $.get("/produk-masuk/list-produk", function(data) {
           $.each(data, function(index, value) {
             let tr_list = '<tr>' +
               '<td class="text-center"> ' +
@@ -313,7 +315,7 @@ $(document).ready(function () {
             $('#jumlah-produk'+id).prop('disabled', false);
 
             $('#jumlah-produk'+id).addClass('is-invalid');
-            $('.error-jumlah-'+id).html('mohon isi jumlah')
+            $('.error-jumlah-'+id).html('mohon isi jumlah produk')
             $('.btn-temp').attr('disabled', true)
         } else {
             $('#jumlah-produk'+id).prop('disabled', true);
@@ -338,9 +340,9 @@ $(document).ready(function () {
         let stok = parseInt($(this).data('stok'))
         var numberRegex = /^[+-]?\d+(\.\d+)?([eE][+-]?\d+)?$/;
 
-        if(jumlah > stok || isNaN(jumlah)) {
+        if(isNaN(jumlah) || jumlah === '') {
             $('#jumlah-produk'+id).addClass('is-invalid');
-            $('.error-jumlah-'+id).html('stok tidak mencukupi')
+            $('.error-jumlah-'+id).html('mohon isi jumlah produk')
             $('.btn-temp').attr('disabled', true)
         } else {
             $('#jumlah-produk'+id).removeClass('is-invalid');
@@ -407,7 +409,7 @@ $(document).ready(function () {
         $('#modalListProduk').modal('show');
         $('#modalTableList tbody').empty();
         let id = $(this).data('id');
-        $.get("/produk-keluar/data-produk-keluar/"+id, function(data) {
+        $.get("/produk-masuk/data-produk-masuk/"+id, function(data) {
           $.each(data, function(index, value) {
             let tr_list = '<tr>' +
               '<td> ' + (index+1) + ' </td>' +

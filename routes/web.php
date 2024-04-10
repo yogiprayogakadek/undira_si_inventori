@@ -20,6 +20,8 @@ Route::namespace('Main')->middleware('auth')->group(function() {
         ->name('dashboard.')
         ->group(function() {
             Route::get('/', 'index')->name('index');
+            Route::post('/update-profil', 'updateProfil')->name('update.profil');
+            Route::post('/update-password', 'updatePassword')->name('update.password');
         });
 
     Route::controller('PenggunaController')
@@ -72,6 +74,39 @@ Route::namespace('Main')->middleware('auth')->group(function() {
             // get list produk
             Route::get('/list-produk', 'listProduk')->name('list-produk');
             Route::get('/data-produk-keluar/{id}', 'dataKeluar')->name('data-produk-keluar');
+        });
+
+    Route::controller('ProdukMasukController')
+        ->prefix('/produk-masuk')
+        ->name('produk-masuk.')
+        ->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::get('/render', 'render')->name('render');
+            Route::get('/create', 'create')->name('create');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::post('/store', 'store')->name('store');
+            Route::post('/update', 'update')->name('update');
+
+            // get list produk
+            Route::get('/list-produk', 'listProduk')->name('list-produk');
+            Route::get('/data-produk-masuk/{id}', 'dataMasuk')->name('data-produk-masuk');
+        });
+
+    Route::controller('ProdukRequestController')
+        ->prefix('/produk-request')
+        ->name('produk-request.')
+        ->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::get('/render', 'render')->name('render');
+            Route::get('/create', 'create')->name('create');
+            Route::get('/edit/{id}', 'edit')->name('edit');
+            Route::post('/store', 'store')->name('store');
+            Route::post('/update', 'update')->name('update');
+
+            // get list produk
+            Route::get('/list-produk', 'listProduk')->name('list-produk');
+            Route::get('/data-produk-request/{id}', 'dataRequest')->name('data-produk-request');
+            Route::post('/update-status', 'updateStatus')->name('update-status');
         });
 });
 

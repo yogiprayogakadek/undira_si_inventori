@@ -9,13 +9,15 @@
                 <div class="triangle"></div>
             </li>
 
-            <li class="nav-item {{ Request::is('pengguna') ? 'active' : '' }}">
-                <a class="nav-item-hold" href="{{ route('pengguna.index') }}">
-                    <i class="nav-icon i-Administrator"></i>
-                    <span class="nav-text">Pengguna</span>
-                </a>
-                <div class="triangle"></div>
-            </li>
+            @can('admin')
+                <li class="nav-item {{ Request::is('pengguna') ? 'active' : '' }}">
+                    <a class="nav-item-hold" href="{{ route('pengguna.index') }}">
+                        <i class="nav-icon i-Administrator"></i>
+                        <span class="nav-text">Pengguna</span>
+                    </a>
+                    <div class="triangle"></div>
+                </li>
+            @endcan
 
             <li class="nav-item {{ Request::is('supplier') ? 'active' : '' }}">
                 <a class="nav-item-hold" href="{{ route('supplier.index') }}">
@@ -33,10 +35,26 @@
                 <div class="triangle"></div>
             </li>
 
+            <li class="nav-item {{ Request::is('produk-masuk') ? 'active' : '' }}">
+                <a class="nav-item-hold" href="{{ route('produk-masuk.index') }}">
+                    <i class="nav-icon i-Share"></i>
+                    <span class="nav-text">Produk Masuk</span>
+                </a>
+                <div class="triangle"></div>
+            </li>
+
             <li class="nav-item {{ Request::is('produk-keluar') ? 'active' : '' }}">
                 <a class="nav-item-hold" href="{{ route('produk-keluar.index') }}">
-                    <i class="nav-icon i-Suitcase"></i>
+                    <i class="nav-icon i-Rocket"></i>
                     <span class="nav-text">Produk Keluar</span>
+                </a>
+                <div class="triangle"></div>
+            </li>
+
+            <li class="nav-item {{ Request::is('produk-request') ? 'active' : '' }}">
+                <a class="nav-item-hold" href="{{ route('produk-request.index') }}">
+                    <i class="nav-icon i-Clock"></i>
+                    <span class="nav-text">Produk Request</span>
                 </a>
                 <div class="triangle"></div>
             </li>

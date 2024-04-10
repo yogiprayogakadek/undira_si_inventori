@@ -23,9 +23,9 @@
                         Tanggal
                     </label>
                     <div class="col-lg-11">
-                        <input type="date" class="form-control tanggal_proses" name="tanggal_proses"
+                        <input type="text" class="form-control tanggal_proses" name="tanggal_proses"
                             id="tanggal_proses" placeholder="masukkan tanggal proses"
-                            value="{{ $produk->tanggal_proses }}">
+                            value="{{ date_format(date_create($produk->tanggal_proses), 'm/d/Y') }}">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -122,4 +122,19 @@
             "{{ session('status') }}",
         );
     @endif
+
+    var currentDate = new Date();
+    $('#tanggal_proses').datepicker({
+        format: 'mm/dd/yyyy',
+        autoclose: true,
+        endDate: "currentDate",
+        maxDate: currentDate
+    }).on('changeDate', function(ev) {
+        $(this).datepicker('hide');
+    });
+    $('#tanggal_proses').keyup(function() {
+        if (this.value.match(/[^0-9]/g)) {
+            this.value = this.value.replace(/[^0-9^-]/g, '');
+        }
+    });
 </script>

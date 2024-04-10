@@ -3,25 +3,24 @@
 namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ProdukOutRequest;
 use App\Models\Produk;
-use App\Models\ProdukKeluar;
+use App\Models\ProdukMasuk;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 
-class ProdukKeluarController extends Controller
+class ProdukMasukController extends Controller
 {
     public function index()
     {
-        return view('main.produk-keluar.index');
+        return view('main.produk-masuk.index');
     }
 
     public function render()
     {
-        $produk = ProdukKeluar::all();
+        $produk = ProdukMasuk::with(['supplier'])->get();
 
         $view = [
-            'data' => view('main.produk-keluar.render', compact('produk'))->render(),
+            'data' => view('main.produk-masuk.render', compact('produk'))->render(),
         ];
 
         return response()->json($view);
@@ -31,7 +30,7 @@ class ProdukKeluarController extends Controller
     {
         $supplier = Supplier::where('status', true)->get();
         $view = [
-            'data' => view('main.produk-keluar.create', compact('supplier'))->render(),
+            'data' => view('main.produk-masuk.create', compact('supplier'))->render(),
         ];
 
         return response()->json($view);
@@ -41,7 +40,7 @@ class ProdukKeluarController extends Controller
     {
         try {
             $data = [
-                // 'supplier_id' => $request->supplier_id,
+                'supplier_id' => $request->supplier_id,
                 'data' => json_encode(json_decode($request->list_produk, true)[0]['data']),
                 'tanggal_proses' => date_format(date_create($request->tanggal_proses), 'Y-m-d'),
             ];
@@ -49,11 +48,11 @@ class ProdukKeluarController extends Controller
             foreach (json_decode($request->list_produk, true)[0]['data'] as $key => $value) {
                 $produk = Produk::find($value['produkId']);
                 $produk->update([
-                    'stok' => $produk->stok - (int)$value['jumlah']
+                    'stok' => $produk->stok + (int)$value['jumlah']
                 ]);
             }
 
-            ProdukKeluar::create($data);
+            ProdukMasuk::create($data);
 
             return response()->json([
                 'status' => 'success',
@@ -73,9 +72,10 @@ class ProdukKeluarController extends Controller
 
     public function edit($id)
     {
-        $produk = ProdukKeluar::find($id);
+        $produk = ProdukMasuk::find($id);
+        $supplier = Supplier::all();
         $view = [
-            'data' => view('main.produk-keluar.edit', compact('produk'))->render(),
+            'data' => view('main.produk-masuk.edit', compact(['supplier', 'produk']))->render(),
             'produk' => json_decode($produk->data, true)
         ];
 
@@ -86,7 +86,7 @@ class ProdukKeluarController extends Controller
     {
         // dd($request->all());
         try {
-            $produkKeluar = ProdukKeluar::find($request->produk_keluar_id);
+            $produkMasuk = ProdukMasuk::find($request->produk_masuk_id);
             // dd($request->all());
             $data = [
                 // 'supplier_id' => $request->supplier_id,
@@ -95,10 +95,10 @@ class ProdukKeluarController extends Controller
             ];
 
             // update ++ stok
-            foreach (json_decode($produkKeluar->data, true) as $key => $value) {
+            foreach (json_decode($produkMasuk->data, true) as $key => $value) {
                 $produk = Produk::find($value['produkId']);
                 $produk->update([
-                    'stok' => $produk->stok + (int)$value['jumlah']
+                    'stok' => $produk->stok - (int)$value['jumlah']
                 ]);
             }
 
@@ -106,11 +106,11 @@ class ProdukKeluarController extends Controller
             foreach (json_decode($request->list_produk, true)[0]['data'] as $key => $value) {
                 $produk = Produk::find($value['produkId']);
                 $produk->update([
-                    'stok' => $produk->stok - (int)$value['jumlah']
+                    'stok' => $produk->stok + (int)$value['jumlah']
                 ]);
             }
 
-            $produkKeluar->update($data);
+            $produkMasuk->update($data);
 
             return response()->json([
                 'status' => 'success',
@@ -130,16 +130,15 @@ class ProdukKeluarController extends Controller
 
     public function listProduk()
     {
-        $produk = Produk::where('stok', '>', 0)
-                        ->where('status', true)
+        $produk = Produk::where('status', true)
                         ->get();
 
         return response()->json($produk);
     }
 
-    public function dataKeluar($id) {
-        $produkKeluar = ProdukKeluar::find($id);
+    public function dataMasuk($id) {
+        $produkMasuk = ProdukMasuk::find($id);
 
-        return response()->json(json_decode($produkKeluar->data, true));
+        return response()->json(json_decode($produkMasuk->data, true));
     }
 }

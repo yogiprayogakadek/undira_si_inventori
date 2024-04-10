@@ -1,6 +1,6 @@
 @extends('templates.master')
 
-@section('page-title', 'Produk Keluar')
+@section('page-title', 'Produk Masuk')
 @section('page-sub-title', 'Data')
 @push('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.css">
@@ -14,7 +14,7 @@
 
 @push('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.js"></script>
-    <script src="{{ asset('assets/function/produk-keluar/main.js') }}"></script>
+    <script src="{{ asset('assets/function/produk-masuk/main.js') }}"></script>
     <script>
         @if (session('status'))
             Swal.fire(

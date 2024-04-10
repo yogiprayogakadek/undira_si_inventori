@@ -27,7 +27,7 @@
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('assets/images/logo.png') }}" sizes="any">
     <!-- Page Title -->
-    <title>E-LEARNING HOSPITALITY | NORTH SEA BALI COLLEGE</title>
+    <title>PT. NUSANTARA PRIMA DJAYA</title>
 </head>
 
 <body class="d-flex align-items-center bg-light-green">
@@ -37,7 +37,7 @@
             <div class="col-md-7 col-lg-6 px-lg-4 px-xl-8 d-flex flex-column vh-100 py-6">
 
                 <!-- Brand -->
-                <a class="navbar-brand mb-auto" href="./index.html">
+                <a class="navbar-brand mb-auto" href="javascript:void(0)">
                     <img src="{{ asset('assets/images/logo.png') }}" class="navbar-brand-img logo-light logo-large"
                         alt="..." width="75">
                     <img src="{{ asset('assets/images/logo.png') }}" class="navbar-brand-img logo-dark logo-large"
@@ -46,7 +46,7 @@
                 <div>
                     <!-- Title -->
                     <h1 class="mb-2">
-                        E-LEARNING HOSPITALITY | NORTH SEA BALI COLLEGE
+                        PT. NUSANTARA PRIMA DJAYA
                     </h1>
 
                     <!-- Subtitle -->
@@ -130,7 +130,7 @@
 
                 <!-- Image -->
                 <div class="bg-size-cover bg-position-center bg-repeat-no-repeat overlay overlay-dark overlay-50 vh-100 me-n4"
-                    style="background-image: url({{ asset('assets/styles/css/login/bg.jpeg') }});">
+                    style="background-image: url({{ asset('assets/styles/css/login/wallpaper.jpg') }});">
                 </div>
             </div>
         </div> <!-- / .row -->

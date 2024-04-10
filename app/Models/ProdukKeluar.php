@@ -11,14 +11,4 @@ class ProdukKeluar extends Model
 
     protected $guarded = ['id'];
     protected $table = 'produk_keluar';
-
-    public function supplier()
-    {
-        return $this->belongsTo(Supplier::class, 'supplier_id', 'id');
-    }
-
-    public function produk()
-    {
-        return $this->belongsTo(Produk::class, 'produk_id', 'id');
-    }
 }

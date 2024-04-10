@@ -1,6 +1,6 @@
 <div class="col-12">
-    <form id="formAdd">
-        {{-- @csrf --}}
+    <form id="formEdit">
+        @csrf
         <div class="card">
             <div class="card-header">
                 <div class="row">
@@ -16,25 +16,16 @@
                 </div>
             </div>
             <div class="card-body">
-                {{-- <div class="form-group row">
-                    <label for="nama" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
-                        Nama
-                    </label>
-                    <div class="col-lg-11">
-                        <select name="supplier_id" id="supplier_id" class="form-control supplier-id">
-                            @foreach ($supplier as $supplier)
-                                <option value="{{ $supplier->id }}">{{ $supplier->nama }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div> --}}
+                <input type="hidden" name="produk_request_id" id="id" class="form-control produk-keluar-id"
+                    value="{{ $produk->id }}">
                 <div class="form-group row">
-                    <label for="tanggal_proses" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                    <label for="tanggal_request" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
                         Tanggal
                     </label>
                     <div class="col-lg-11">
-                        <input type="text" class="form-control tanggal_proses" name="tanggal_proses"
-                            id="tanggal_proses" placeholder="masukkan tanggal proses">
+                        <input type="text" class="form-control tanggal_request" name="tanggal_request"
+                            id="tanggal_request" placeholder="masukkan tanggal request"
+                            value="{{ date_format(date_create($produk->tanggal_request), 'm/d/Y') }}">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -57,17 +48,21 @@
                                     <th class="text-center">No.</th>
                                     <th class="text-center">Nama Produk</th>
                                     <th class="text-center">Jumlah</th>
-                                    {{-- <th width="5%"><button class="btn btn-sm btn-danger delete-all" disabled><i
-                                                class="fa fa-trash"> Hapus Semua</i></button></th> --}}
                                     <th width='20%' class="text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="text-center">
-                                    <td colspan="4">
-                                        <h3><i>No data...</i></h3>
-                                    </td>
-                                </tr>
+                                @foreach (json_decode($produk->data, true) as $item)
+                                    <tr>
+                                        <td width="5%">{{ $loop->iteration }}</td>
+                                        <td>{{ $item['namaProduk'] }}</td>
+                                        <td>{{ $item['jumlah'] }}</td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-danger btn-delete-temp"
+                                                data-id="{{ $item['produkId'] }}"><i class="fa fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -77,7 +72,7 @@
                 <div class="mc-footer">
                     <div class="row">
                         <div class="col-lg-12">
-                            <button type="button" class="btn  btn-primary m-1 btn-save">Simpan</button>
+                            <button type="button" class="btn  btn-primary m-1 btn-update">Simpan</button>
                             <button type="button" class="btn btn-outline-secondary m-1 btn-data">Batal</button>
                         </div>
                     </div>
@@ -119,10 +114,6 @@
     </div>
 </div>
 
-<script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-
-{!! JsValidator::formRequest('App\Http\Requests\ProdukRequest', '#form') !!}
-
 <script>
     @if (session('status'))
         Swal.fire(
@@ -133,7 +124,7 @@
     @endif
 
     var currentDate = new Date();
-    $('#tanggal_proses').datepicker({
+    $('#tanggal_request').datepicker({
         format: 'mm/dd/yyyy',
         autoclose: true,
         endDate: "currentDate",
@@ -141,7 +132,7 @@
     }).on('changeDate', function(ev) {
         $(this).datepicker('hide');
     });
-    $('#tanggal_proses').keyup(function() {
+    $('#tanggal_request').keyup(function() {
         if (this.value.match(/[^0-9]/g)) {
             this.value = this.value.replace(/[^0-9^-]/g, '');
         }
