@@ -44,10 +44,12 @@
                             @can('staff')
                                 <td>
                                     <span
-                                        class="badge badge-{{ $produk->status == true ? 'primary' : 'info' }}">{{ $produk->status == true ? 'Approved' : 'Ditolak' }}</span>
+                                        class="badge badge-{{ $produk->status == 'Approved' ? 'primary' : 'info' }}">{{ $produk->status == 'Approved' ? 'Approved' : ($produk->status == 'Menunggu Konfirmasi' ? 'Menunggu Konfirmasi' : 'Ditolak') }}</span>
                                 </td>
-                                @if ($produk->status == true)
-                                    <span class="badge badge-info">Sudah tidak dapat mengubah</span>
+                                @if ($produk->status == 'Approved')
+                                    <td>
+                                        <span class="badge badge-info">Sudah tidak dapat mengubah</span>
+                                    </td>
                                 @else
                                     <td>
                                         <button class="btn btn-edit btn-default" data-id="{{ $produk->id }}">
@@ -61,9 +63,14 @@
                                 <td>
                                     <select name="status" id="status" class="form-control status"
                                         data-id="{{ $produk->id }}" data-status="{{ $produk->status }}">
-                                        <option value="1" {{ $produk->status == true ? 'selected' : '' }}>Approved
+                                        <option value="Menunggu Konfirmasi"
+                                            {{ $produk->status == 'Menunggu Konfirmasi' ? 'selected' : '' }}>Menunggu
+                                            Konfirmasi
                                         </option>
-                                        <option value="0" {{ $produk->status == false ? 'selected' : '' }}>Tolak
+                                        <option value="Approved" {{ $produk->status == 'Approved' ? 'selected' : '' }}>
+                                            Approved
+                                        </option>
+                                        <option value="Ditolak" {{ $produk->status == 'Ditolak' ? 'selected' : '' }}>Tolak
                                         </option>
                                     </select>
                                 </td>

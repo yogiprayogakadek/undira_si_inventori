@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('pengguna_id')->comment('staff')->references('id')->on('pengguna')->onDelete('cascade');
             $table->json('data');
             $table->date('tanggal_request');
-            $table->boolean('status')->comment('update oleh admin')->default(false);
+            $table->enum('status', ['Menunggu Konfirmasi', 'Approved', 'Ditolak'])->default('Menunggu Konfirmasi')->comment('update oleh admin');
             $table->timestamps();
         });
     }
