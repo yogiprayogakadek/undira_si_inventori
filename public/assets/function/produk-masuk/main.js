@@ -42,7 +42,9 @@ function getTempData() {
             let tr_list = '<tr>' +
                 '<td width="5%">' + (index+1) + '</td>' +
                 '<td>' + value.namaProduk + '</td>' +
+                '<td>' + value.hargaBeli + '</td>' +
                 '<td>' + value.jumlah + '</td>' +
+                '<td>' + (value.jumlah*value.hargaBeli) + '</td>' +
                 '<td class="text-center">' + '<button type="button" class="btn btn-danger btn-delete-temp" data-id="'+value.produkId+'"><i class="fa fa-trash"></i></button>' + '</td>' +
             '</tr>';
             $('#produkTable tbody').append(tr_list);
@@ -130,6 +132,7 @@ $(document).ready(function () {
                 $.each(response.produk, function (index, value) {
                     let data = {
                         'jumlah': parseInt(value.jumlah),
+                        'hargaBeli': parseInt(value.hargaBeli),
                         'produkId': parseInt(value.produkId),
                         'namaProduk': value.namaProduk,
                     };
@@ -272,12 +275,17 @@ $(document).ready(function () {
           $.each(data, function(index, value) {
             let tr_list = '<tr>' +
               '<td class="text-center"> ' +
-              '<input type="checkbox" class="checkbox-secondary checkbox-produk" id="checkbox' + value.id + '" name="list[]" data-id="' + value.id + '" data-nama="' + value.nama + '">' +
+              '<input type="checkbox" class="checkbox-secondary checkbox-produk" id="checkbox' + value.id + '" name="list[]" data-id="' + value.id + '" data-nama="' + value.nama + '" data-beli="'+value.harga_beli+'" data-jual="'+value.harga_jual+'">' +
               '</td>' +
               '<td> ' + value.nama + ' </td>' +
+              '<td> ' + value.harga_beli + ' </td>' +
+            //   '<td> ' + value.harga_jual + ' </td>' +
               '<td class="text-center"> ' + value.stok + ' </td>' +
               '<td> ' +
-              '<input class="form-control jumlah-produk" disabled=true id="jumlah-produk' + value.id + '" data-id="' + value.id + '" data-stok="' + value.stok + '" name="jumlah-produk[]"><div class="invalid-feedback error-jumlah-' + value.id + '"></div>' +
+              '<input class="form-control jumlah-produk" disabled=true id="jumlah-produk' + value.id + '" data-id="' + value.id + '" data-stok="' + value.stok + '" name="jumlah-produk[]" data-beli="'+value.harga_beli+'" data-jual="'+value.harga_jual+'"><div class="invalid-feedback error-jumlah-' + value.id + '"></div>' +
+              '</td>' +
+              '<td> ' +
+              '<span id="total-harga' + value.id + '">0</span>' +
               '</td>' +
               '</tr>';
             $('#modalTable tbody').append(tr_list);
@@ -285,6 +293,7 @@ $(document).ready(function () {
             // Call the getProdukIdIndex function and fill the jumlah-produk input
             const produkId = value.id;
             const jumlahProdukInput = $('#jumlah-produk' + produkId);
+            const totalHargaInput = $('#total-harga' + produkId);
             const produkIdIndex = getProdukIdIndex(produkId);
 
             if (produkIdIndex !== -1) {
@@ -295,6 +304,7 @@ $(document).ready(function () {
 
               // Fill the jumlah-produk input with the jumlah value from localStorage
               jumlahProdukInput.val(foundData.jumlah);
+              totalHargaInput.html(foundData.jumlah*foundData.hargaBeli);
               jumlahProdukInput.prop('disabled', false);
               $("#checkbox"+produkId).prop('checked', true);
             } else {
@@ -337,6 +347,8 @@ $(document).ready(function () {
     $('body').on('keyup', '.jumlah-produk', function() {
         let id = $(this).data('id');
         let jumlah = parseInt($(this).val());
+        let hargaJual = parseInt($(this).data('jual'));
+        let hargaBeli = parseInt($(this).data('beli'));
         let stok = parseInt($(this).data('stok'))
         var numberRegex = /^[+-]?\d+(\.\d+)?([eE][+-]?\d+)?$/;
 
@@ -345,6 +357,7 @@ $(document).ready(function () {
             $('.error-jumlah-'+id).html('mohon isi jumlah produk')
             $('.btn-temp').attr('disabled', true)
         } else {
+            $('#total-harga'+id).html(jumlah*hargaBeli);
             $('#jumlah-produk'+id).removeClass('is-invalid');
             $('.error-jumlah-'+id).html('')
             $('.btn-temp').attr('disabled', false)
@@ -366,8 +379,12 @@ $(document).ready(function () {
             let jumlah = $(this).closest('tr').find('input.jumlah-produk').val();
             let produkId = $(this).data('id');
             let namaProduk = $(this).data('nama');
+            let hargaBeli = $(this).data('beli');
+            let hargaJual = $(this).data('jual');
 
             let data = {
+                'hargaBeli': parseInt(hargaBeli),
+                'hargaJual': parseInt(hargaJual),
                 'jumlah': parseInt(jumlah),
                 'produkId': parseInt(produkId),
                 'namaProduk': namaProduk,
@@ -414,7 +431,9 @@ $(document).ready(function () {
             let tr_list = '<tr>' +
               '<td> ' + (index+1) + ' </td>' +
               '<td> ' + value.namaProduk + ' </td>' +
+              '<td> ' + value.hargaBeli + ' </td>' +
               '<td class="text-center"> ' + value.jumlah + ' </td>' +
+              '<td class="text-center"> ' + (value.jumlah*value.hargaBeli) + ' </td>' +
               '</tr>';
             $('#modalTableList tbody').append(tr_list);
           });

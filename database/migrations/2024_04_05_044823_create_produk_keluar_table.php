@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('produk_keluar', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('supplier_id')->references('id')->on('supplier')->onDelete('cascade');
             // $table->foreignId('produk_id')->references('id')->on('produk')->onDelete('cascade');
             // $table->enum('kategori', ['keluar', 'masuk']);
             // $table->integer('jumlah');
+            $table->foreignId('pengguna_id')->comment('insert by')->references('id')->on('pengguna')->onDelete('cascade');
             $table->json('data');
+            $table->string('nama_customer', 100);
+            $table->char('no_telp', 16);
             $table->date('tanggal_proses');
             $table->timestamps();
         });

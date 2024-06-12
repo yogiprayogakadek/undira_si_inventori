@@ -61,7 +61,9 @@
                                 <tr>
                                     <th class="text-center">No.</th>
                                     <th class="text-center">Nama Produk</th>
+                                    <th class="text-center">Harga Beli</th>
                                     <th class="text-center">Jumlah</th>
+                                    <th class="text-center">Total Harga</th>
                                     <th width='20%' class="text-center">Aksi</th>
                                 </tr>
                             </thead>
@@ -70,7 +72,9 @@
                                     <tr>
                                         <td width="5%">{{ $loop->iteration }}</td>
                                         <td>{{ $item['namaProduk'] }}</td>
+                                        <td>{{ $item['hargaBeli'] }}</td>
                                         <td>{{ $item['jumlah'] }}</td>
+                                        <td>{{ $item['jumlah'] * $item['hargaBeli'] }}</td>
                                         <td class="text-center">
                                             <button type="button" class="btn btn-danger btn-delete-temp"
                                                 data-id="{{ $item['produkId'] }}"><i class="fa fa-trash"></i></button>
@@ -113,8 +117,10 @@
                         <tr>
                             <th></th>
                             <th>Nama Produk</th>
+                            <th>Harga Beli</th>
                             <th>Stok</th>
                             <th>Jumlah</th>
+                            <th>Total Harga</th>
                         </tr>
                     </thead>
                     <tbody></tbody>

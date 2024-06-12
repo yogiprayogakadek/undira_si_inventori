@@ -27,8 +27,10 @@ class ProdukRequest extends FormRequest
         $rules =  [
             'nama' => "required|string|max:50|min:3|unique:produk,nama,{$this->id}",
             'keterangan' => 'required',
-            'jenis' => 'required',
+            // 'jenis' => 'required',
             'stok' => 'required|numeric',
+            'harga_beli' => 'required|numeric',
+            'harga_jual' => 'required|numeric',
         ];
 
         if (Request::instance()->has('id')) {
@@ -61,8 +63,10 @@ class ProdukRequest extends FormRequest
         return [
             'nama' => 'Nama',
             'keterangan' => 'Keterangan',
-            'jenis' => 'Jenis',
+            // 'jenis' => 'Jenis',
             'stok' => 'Stok',
+            'harga_jual' => 'Harga jual',
+            'harga_beli' => 'Harga beli',
             'status' => 'Status',
         ];
     }

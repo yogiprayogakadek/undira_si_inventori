@@ -27,29 +27,33 @@
                 <div class="triangle"></div>
             </li>
 
-            <li class="nav-item {{ Request::is('produk') ? 'active' : '' }}">
-                <a class="nav-item-hold" href="{{ route('produk.index') }}">
-                    <i class="nav-icon i-Suitcase"></i>
-                    <span class="nav-text">Produk</span>
-                </a>
-                <div class="triangle"></div>
-            </li>
 
-            <li class="nav-item {{ Request::is('produk-masuk') ? 'active' : '' }}">
-                <a class="nav-item-hold" href="{{ route('produk-masuk.index') }}">
-                    <i class="nav-icon i-Share"></i>
-                    <span class="nav-text">Produk Masuk</span>
-                </a>
-                <div class="triangle"></div>
-            </li>
+            @can('admin')
+                <li class="nav-item {{ Request::is('produk') ? 'active' : '' }}">
+                    <a class="nav-item-hold" href="{{ route('produk.index') }}">
+                        <i class="nav-icon i-Suitcase"></i>
+                        <span class="nav-text">Produk</span>
+                    </a>
+                    <div class="triangle"></div>
+                </li>
+                <li class="nav-item {{ Request::is('produk-masuk') ? 'active' : '' }}">
+                    <a class="nav-item-hold" href="{{ route('produk-masuk.index') }}">
+                        <i class="nav-icon i-Share"></i>
+                        <span class="nav-text">Produk Masuk</span>
+                    </a>
+                    <div class="triangle"></div>
+                </li>
+            @endcan
 
-            <li class="nav-item {{ Request::is('produk-keluar') ? 'active' : '' }}">
-                <a class="nav-item-hold" href="{{ route('produk-keluar.index') }}">
-                    <i class="nav-icon i-Rocket"></i>
-                    <span class="nav-text">Produk Keluar</span>
-                </a>
-                <div class="triangle"></div>
-            </li>
+            @cannot('admin')
+                <li class="nav-item {{ Request::is('produk-keluar') ? 'active' : '' }}">
+                    <a class="nav-item-hold" href="{{ route('produk-keluar.index') }}">
+                        <i class="nav-icon i-Rocket"></i>
+                        <span class="nav-text">Produk Keluar</span>
+                    </a>
+                    <div class="triangle"></div>
+                </li>
+            @endcannot
 
             <li class="nav-item {{ Request::is('produk-request') ? 'active' : '' }}">
                 <a class="nav-item-hold" href="{{ route('produk-request.index') }}">

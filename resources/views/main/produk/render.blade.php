@@ -20,6 +20,8 @@
                 <thead>
                     <th>No</th>
                     <th>Nama Produk</th>
+                    <th>Harga Beli</th>
+                    <th>Harga Jual</th>
                     <th>Stok</th>
                     <th>Jenis Produk</th>
                     <th>Keterangan</th>
@@ -33,6 +35,8 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $produk->nama }}</td>
+                            <td>{{ 'Rp ' . number_format($produk->harga_beli, 0, '.', '.') }}</td>
+                            <td>{{ 'Rp ' . number_format($produk->harga_jual, 0, '.', '.') }}</td>
                             <td>{{ $produk->stok }}</td>
                             <td>{{ $produk->jenis }}</td>
                             <td>{{ $produk->keterangan }}</td>

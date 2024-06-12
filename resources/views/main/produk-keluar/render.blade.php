@@ -19,7 +19,10 @@
             <table class="table table-hover table-striped" id="tableData">
                 <thead>
                     <th>No</th>
+                    <th>Staff</th>
                     <th>Tanggal</th>
+                    <th>Customer</th>
+                    <th>No. Telp</th>
                     <th>Data Produk</th>
                     {{-- @can('Admin')   --}}
                     <th>Aksi</th>
@@ -29,9 +32,13 @@
                     @foreach ($produk as $produk)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
+                            <td>{{ $produk->pengguna->nama }}</td>
                             <td>{{ date_format(date_create($produk->tanggal_proses), 'd-m-Y') }}</td>
+                            <td>{{ $produk->nama_customer }}</td>
+                            <td>{{ $produk->no_telp }}</td>
                             <td>
                                 <span class="badge badge-primary data-produk" data-id="{{ $produk->id }}"
+                                    data-customer="{{ $produk->nama_customer }}" data-telp="{{ $produk->no_telp }}"
                                     style="cursor: pointer;">Lihat</span>
                             </td>
                             {{-- @can('Admin')    --}}
@@ -57,18 +64,27 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Produk</h5>
+                <h5 class="modal-title">Detail Produk</h5>
                 <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-danger btn-rounded">
                     <i class="fa fa-times"></i>
                 </button>
             </div>
             <div class="modal-body">
+                <div class="row mb-3">
+                    <div class="col-3">Nama Customer</div>
+                    <div class="col-7 nama-customer"></div>
+
+                    <div class="col-3">No. Telp</div>
+                    <div class="col-7 no-telp"></div>
+                </div>
                 <table class="table table-bordered" id="modalTableList">
                     <thead>
                         <tr>
                             <th class="text-center">No.</th>
                             <th class="text-center">Nama Produk</th>
+                            <th class="text-center">Harga Jual</th>
                             <th class="text-center">Jumlah</th>
+                            <th class="text-center">Total Harga</th>
                         </tr>
                     </thead>
                     <tbody></tbody>

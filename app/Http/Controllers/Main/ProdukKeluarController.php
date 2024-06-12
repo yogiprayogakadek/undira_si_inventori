@@ -44,6 +44,9 @@ class ProdukKeluarController extends Controller
                 // 'supplier_id' => $request->supplier_id,
                 'data' => json_encode(json_decode($request->list_produk, true)[0]['data']),
                 'tanggal_proses' => date_format(date_create($request->tanggal_proses), 'Y-m-d'),
+                'nama_customer' => $request->nama_customer,
+                'no_telp' => $request->no_telp,
+                'pengguna_id' => auth()->user()->id
             ];
 
             foreach (json_decode($request->list_produk, true)[0]['data'] as $key => $value) {
@@ -92,6 +95,9 @@ class ProdukKeluarController extends Controller
                 // 'supplier_id' => $request->supplier_id,
                 'data' => json_encode(json_decode($request->list_produk, true)[0]['data']),
                 'tanggal_proses' => date_format(date_create($request->tanggal_proses), 'Y-m-d'),
+                'nama_customer' => $request->nama_customer,
+                'no_telp' => $request->no_telp,
+                'pengguna_id' => auth()->user()->id
             ];
 
             // update ++ stok

@@ -40,8 +40,10 @@ class ProdukController extends Controller
             $produk = [
                 'nama' => $request->nama,
                 'stok' => $request->stok,
-                'jenis' => $request->jenis,
+                // 'jenis' => $request->jenis,
                 'keterangan' => $request->keterangan,
+                'harga_beli' => preg_replace('/[^0-9]/', '', $request->harga_beli),
+                'harga_jual' => preg_replace('/[^0-9]/', '', $request->harga_jual),
             ];
 
             Produk::create($produk);
@@ -81,9 +83,11 @@ class ProdukController extends Controller
             $data = [
                 'nama' => $request->nama,
                 'stok' => $request->stok,
-                'jenis' => $request->jenis,
+                // 'jenis' => $request->jenis,
                 'keterangan' => $request->keterangan,
                 'status' => $request->status,
+                'harga_beli' => preg_replace('/[^0-9]/', '', $request->harga_beli),
+                'harga_jual' => preg_replace('/[^0-9]/', '', $request->harga_jual),
             ];
 
             $produk->update($data);

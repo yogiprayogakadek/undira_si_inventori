@@ -70,7 +70,9 @@
                         <tr>
                             <th class="text-center">No.</th>
                             <th class="text-center">Nama Produk</th>
+                            <th class="text-center">Harga Beli</th>
                             <th class="text-center">Jumlah</th>
+                            <th class="text-center">Total Harga</th>
                         </tr>
                     </thead>
                     <tbody></tbody>

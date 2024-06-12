@@ -56,7 +56,9 @@
                                 <tr>
                                     <th class="text-center">No.</th>
                                     <th class="text-center">Nama Produk</th>
+                                    <th class="text-center">Harga Beli</th>
                                     <th class="text-center">Jumlah</th>
+                                    <th class="text-center">Total Harga</th>
                                     {{-- <th width="5%"><button class="btn btn-sm btn-danger delete-all" disabled><i
                                                 class="fa fa-trash"> Hapus Semua</i></button></th> --}}
                                     <th width='20%' class="text-center">Aksi</th>
@@ -104,8 +106,10 @@
                         <tr>
                             <th></th>
                             <th>Nama Produk</th>
+                            <th>Harga Beli</th>
                             <th>Stok</th>
                             <th>Jumlah</th>
+                            <th>Total Harga</th>
                         </tr>
                     </thead>
                     <tbody></tbody>

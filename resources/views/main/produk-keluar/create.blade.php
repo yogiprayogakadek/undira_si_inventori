@@ -38,6 +38,24 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="nama_customer" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                        Nama Customer
+                    </label>
+                    <div class="col-lg-11">
+                        <input type="text" class="form-control nama_customer" name="nama_customer" id="nama_customer"
+                            placeholder="masukkan nama customer">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="no_telp" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                        No. Telp
+                    </label>
+                    <div class="col-lg-11">
+                        <input type="text" class="form-control no_telp" name="no_telp" id="no_telp"
+                            placeholder="masukkan nomor telp">
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="btn-search" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">
                         Data Produk
                     </label>
@@ -56,7 +74,9 @@
                                 <tr>
                                     <th class="text-center">No.</th>
                                     <th class="text-center">Nama Produk</th>
+                                    <th class="text-center">Harga Jual</th>
                                     <th class="text-center">Jumlah</th>
+                                    <th class="text-center">Total Harga</th>
                                     {{-- <th width="5%"><button class="btn btn-sm btn-danger delete-all" disabled><i
                                                 class="fa fa-trash"> Hapus Semua</i></button></th> --}}
                                     <th width='20%' class="text-center">Aksi</th>
@@ -104,8 +124,10 @@
                         <tr>
                             <th></th>
                             <th>Nama Produk</th>
+                            <th>Harga Jual</th>
                             <th>Stok</th>
                             <th>Jumlah</th>
+                            <th>Total Harga</th>
                         </tr>
                     </thead>
                     <tbody></tbody>

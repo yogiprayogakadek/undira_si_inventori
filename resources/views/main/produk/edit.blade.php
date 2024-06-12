@@ -28,6 +28,24 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="harga_beli" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                        Harga Beli
+                    </label>
+                    <div class="col-lg-11">
+                        <input type="text" class="form-control harga_beli" name="harga_beli" id="harga_beli"
+                            placeholder="masukkan harga beli" value="{{ $produk->harga_beli }}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="harga_jual" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                        Harga Jual
+                    </label>
+                    <div class="col-lg-11">
+                        <input type="text" class="form-control harga_jual" name="harga_jual" id="harga_jual"
+                            placeholder="masukkan harga jual" value="{{ $produk->harga_jual }}">
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="stok" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
                         Stok
                     </label>
@@ -36,7 +54,7 @@
                             placeholder="masukkan stok" value="{{ $produk->stok }}">
                     </div>
                 </div>
-                <div class="form-group row">
+                {{-- <div class="form-group row">
                     <label for="jenis" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
                         Jenis Produk
                     </label>
@@ -50,7 +68,7 @@
                             </option>
                         </select>
                     </div>
-                </div>
+                </div> --}}
                 <div class="form-group row">
                     <label for="Keterangan" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
                         Keterangan

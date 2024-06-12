@@ -27,9 +27,9 @@ class ProdukOutRequest extends FormRequest
             // 'supplier_id' => 'required',
             'data' => 'required|array|min:1',
             // 'produk_id' => 'required',
-            // 'kategori' => 'required',
+            'nama_customer' => 'required|string',
             'tanggal_proses' => 'required|date',
-            // 'jumlah' => 'required|numeric',
+            'no_telp' => 'required|numeric',
         ];
 
         return $rules;
@@ -57,8 +57,8 @@ class ProdukOutRequest extends FormRequest
             // 'supplier_id' => 'Nama supplier',
             'data' => 'Produk',
             'tanggal_proses' => 'Tanggal',
-            // 'kategori' => 'Kategori',
-            // 'jumlah' => 'Jumlah',
+            'nama_customer' => 'Nama customer',
+            'no_telp' => 'No. telp',
         ];
     }
 }

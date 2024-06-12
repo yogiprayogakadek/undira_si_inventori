@@ -78,21 +78,46 @@
                     <div class="card-body">
                         {{-- <input type="hidden" name="update_password" id="update_password" value="update-password"
                         class="form-control"> --}}
-
                         <div class="form-group">
                             <label for="">Password Sekarang</label>
-                            <input type="password" class="form-control" name="current_password" id="current_password"
-                                placeholder="masukkan password sekarang" autocomplete="off" autofocus>
+                            {{-- <input type="password" class="form-control" name="current_password" id="current_password"
+                                placeholder="masukkan password sekarang" autocomplete="off" autofocus> --}}
+
+                            <div class="input-group mb-3">
+                                <input type="password" class="form-control" name="current_password" id="current_password"
+                                    placeholder="masukkan password sekarang" autocomplete="off" autofocus>
+                                <div class="input-group-append show-password" style="cursor: pointer">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-eye"></i>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
+
                         <div class="form-group">
                             <label for="">Password Baru</label>
-                            <input type="password" class="form-control" name="new_password" id="new_password"
-                                placeholder="masukkan password baru" autocomplete="off" autofocus>
+                            <div class="input-group mb-3">
+                                <input type="password" class="form-control" name="new_password" id="new_password"
+                                    placeholder="masukkan password baru" autocomplete="off" autofocus>
+                                <div class="input-group-append show-password" style="cursor: pointer">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-eye"></i>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
+
                         <div class="form-group">
                             <label for="">Password Konfirmasi</label>
-                            <input type="password" class="form-control" name="confirm_password" id="confirm_password"
-                                placeholder="masukkan password konfirmasi" autocomplete="off" autofocus>
+                            <div class="input-group mb-3">
+                                <input type="password" class="form-control" name="confirm_password" id="confirm_password"
+                                    placeholder="masukkan password konfirmasi" autocomplete="off" autofocus>
+                                <div class="input-group-append show-password" style="cursor: pointer">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-eye"></i>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="card-footer">
@@ -122,6 +147,7 @@
     {!! JsValidator::formRequest('App\Http\Requests\UpdatePasswordRequest', '#form2') !!}
     <script>
         $(document).ready(function() {
+            localStorage.setItem('role', "{{ auth()->user()->level }}")
             @if (session('status'))
                 Swal.fire(
                     "{{ session('title') }}",
@@ -152,6 +178,23 @@
                 $('.div-profil-preview').addClass('mx-auto');
                 $('.div-profil').prop('hidden', true)
                 $('.div-password').prop('hidden', true)
+            });
+
+
+            // show hide password
+            $('.show-password').on('click', function() {
+                var $passwordInput = $(this).closest('.input-group').find('input[type="password"]');
+                var $textInput = $(this).closest('.input-group').find('input[type="text"]');
+                var $icon = $(this).find('i');
+
+                if ($passwordInput.attr('type') === 'password') {
+                    $passwordInput.attr('type', 'text');
+                    $icon.removeClass('fa-eye').addClass('fa-eye-slash');
+                } else {
+                    console.log('as')
+                    $textInput.attr('type', 'password');
+                    $icon.removeClass('fa-eye-slash').addClass('fa-eye');
+                }
             });
         });
     </script>

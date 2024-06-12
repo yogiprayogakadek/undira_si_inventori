@@ -29,6 +29,24 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="nama_customer" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                        Nama Customer
+                    </label>
+                    <div class="col-lg-11">
+                        <input type="text" class="form-control nama_customer" name="nama_customer" id="nama_customer"
+                            placeholder="masukkan nama customer" value="{{ $produk->nama_customer }}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="no_telp" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                        No. Telp
+                    </label>
+                    <div class="col-lg-11">
+                        <input type="text" class="form-control no_telp" name="no_telp" id="no_telp"
+                            placeholder="masukkan nomor telp" value="{{ $produk->no_telp }}">
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="btn-search" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">
                         Data Produk
                     </label>

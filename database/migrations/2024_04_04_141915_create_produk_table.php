@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('nama', 100);
             $table->integer('stok');
-            $table->string('jenis', 100);
+            // $table->string('jenis', 100);
+            $table->integer('harga_beli');
+            $table->integer('harga_jual');
             $table->text('keterangan');
             $table->boolean('status')->default(true);
             $table->timestamps();

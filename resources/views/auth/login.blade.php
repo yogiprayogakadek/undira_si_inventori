@@ -39,9 +39,9 @@
                 <!-- Brand -->
                 <a class="navbar-brand mb-auto" href="javascript:void(0)">
                     <img src="{{ asset('assets/images/logo.png') }}" class="navbar-brand-img logo-light logo-large"
-                        alt="..." width="75">
+                        alt="..." style="width: 140px !important; height: 100px !important;">
                     <img src="{{ asset('assets/images/logo.png') }}" class="navbar-brand-img logo-dark logo-large"
-                        alt="..." width="75">
+                        alt="..." style="width: 140px !important; height: 100px !important;">
                 </a>
                 <div>
                     <!-- Title -->
