@@ -5,14 +5,17 @@
                 <div class="col-6">
                     Data Request Produk
                 </div>
-                @can('staff')
-                    <div class="col-6 d-flex align-items-center">
-                        <div class="m-auto"></div>
+                <div class="col-6 d-flex align-items-center">
+                    <div class="m-auto"></div>
+                    <button type="button" class="btn btn-outline-success btn-print mr-2">
+                        <i class="nav-icon i-Download-Window font-weight-bold"></i> Print
+                    </button>
+                    @can('staff')
                         <button type="button" class="btn btn-outline-primary btn-add">
                             <i class="nav-icon i-Pen-2 font-weight-bold"></i> Tambah
                         </button>
-                    </div>
-                @endcan
+                    @endcan
+                </div>
             </div>
         </div>
         <div class="card-body">

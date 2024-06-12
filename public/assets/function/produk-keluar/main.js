@@ -158,25 +158,29 @@ $(document).ready(function () {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
             },
         });
-        let tanggal_proses = $('input[name=tanggal_proses]').val();
-        let nama_customer = $('input[name=nama_customer]').val();
         let no_telp = $('input[name=no_telp]').val();
-        if(tanggal_proses == '' || localStorage.length == 0 || JSON.parse(localStorage.getItem('listProduk'))[0]['data'].length == 0) {
+        let tanggal_proses = $('input[name=tanggal_proses]').val();
+        let jenis_pembayaran = $('.jenis_pembayaran').find(":selected").val();
+        let bukti_pembayaran = $('input[name=bukti_pembayaran]').val();
+        let form = $('#formAdd')[0]
+        let data = new FormData(form)
+        data.append('list_produk', localStorage.getItem('listProduk'))
+        if(tanggal_proses == '' || jenis_pembayaran == '' || bukti_pembayaran == '' || no_telp == '' || localStorage.length == 0 || JSON.parse(localStorage.getItem('listProduk'))[0]['data'].length == 0) {
             Swal.fire('Warning', 'Mohon untuk melengkapi form', 'error');
         } else {
             $.ajax({
                 type: "POST",
                 url: "/produk-keluar/store",
-                data: {
-                    'tanggal_proses': tanggal_proses,
-                    'nama_customer': nama_customer,
-                    'no_telp': no_telp,
-                    'list_produk': localStorage.getItem('listProduk'),
-                },
-                // data: data,
-                // processData: false,
-                // contentType: false,
-                // cache: false,
+                // data: {
+                //     'tanggal_proses': tanggal_proses,
+                //     'nama_customer': nama_customer,
+                //     'no_telp': no_telp,
+                //     'list_produk': localStorage.getItem('listProduk'),
+                // },
+                data: data,
+                processData: false,
+                contentType: false,
+                cache: false,
                 beforeSend: function () {
                     $(".btn-save").attr("disable", "disabled");
                     $(".btn-save").html('<i class="fa fa-spin fa-spinner"></i>');
@@ -206,26 +210,30 @@ $(document).ready(function () {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
             },
         });
-        let tanggal_proses = $('input[name=tanggal_proses]').val();
-        let nama_customer = $('input[name=nama_customer]').val();
         let no_telp = $('input[name=no_telp]').val();
-        if(tanggal_proses == '' || localStorage.length == 0 || JSON.parse(localStorage.getItem('listProduk'))[0]['data'].length == 0) {
+        let tanggal_proses = $('input[name=tanggal_proses]').val();
+        let jenis_pembayaran = $('.jenis_pembayaran').find(":selected").val();
+        let bukti_pembayaran = $('input[name=bukti_pembayaran]').val();
+        let form = $('#formEdit')[0]
+        let data = new FormData(form)
+        data.append('list_produk', localStorage.getItem('listProduk'))
+        if(tanggal_proses == '' || jenis_pembayaran == '' || bukti_pembayaran == '' || no_telp == '' || localStorage.length == 0 || JSON.parse(localStorage.getItem('listProduk'))[0]['data'].length == 0) {
             Swal.fire('Warning', 'Mohon untuk melengkapi form', 'error');
         } else {
             $.ajax({
                 type: "POST",
                 url: "/produk-keluar/update",
-                data: {
-                    'tanggal_proses': tanggal_proses,
-                    'nama_customer': nama_customer,
-                    'no_telp': no_telp,
-                    'list_produk': localStorage.getItem('listProduk'),
-                    'produk_keluar_id': $('input[name=produk_keluar_id]').val()
-                },
-                // data: data,
-                // processData: false,
-                // contentType: false,
-                // cache: false,
+                // data: {
+                //     'tanggal_proses': tanggal_proses,
+                //     'nama_customer': nama_customer,
+                //     'no_telp': no_telp,
+                //     'list_produk': localStorage.getItem('listProduk'),
+                //     'produk_keluar_id': $('input[name=produk_keluar_id]').val()
+                // },
+                data: data,
+                processData: false,
+                contentType: false,
+                cache: false,
                 beforeSend: function () {
                     $(".btn-update").attr("disable", "disabled");
                     $(".btn-update").html('<i class="fa fa-spin fa-spinner"></i>');
@@ -446,6 +454,54 @@ $(document).ready(function () {
               '</tr>';
             $('#modalTableList tbody').append(tr_list);
           });
+        });
+    });
+
+    // print data
+    $("body").on("click", ".btn-print-data", function() {
+        let tanggalAwal = $('.tanggal-awal').val();
+        let tanggalAkhir = $('.tanggal-akhir').val();
+
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+        });
+
+        Swal.fire({
+            title: "Cetak data produk keluar?",
+            icon: "success",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya, cetak!",
+        }).then((result) => {
+            if (result.value) {
+                var mode = "iframe"; //popup
+                var close = mode == "popup";
+                var options = {
+                    mode: mode,
+                    popClose: close,
+                    popTitle: "LaporanProdukKeluar",
+                    popOrient: "Landscape",
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "produk-keluar/print",
+                    data: {
+                        tanggal_awal: tanggalAwal,
+                        tanggal_akhir: tanggalAkhir,
+                    },
+                    success: function(response) {
+                        document.title =
+                            "SIM Rekam Medis | RSD Mangusada - Print" +
+                            new Date().toJSON().slice(0, 10).replace(/-/g, "/");
+                        $(response.data)
+                            .find("div.printableArea")
+                            .printArea(options);
+                    },
+                });
+            }
         });
     });
 });

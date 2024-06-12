@@ -36,6 +36,7 @@ class ProdukController extends Controller
 
     public function store(ProdukRequest $request)
     {
+        // dd($request->all());
         try {
             $produk = [
                 'nama' => $request->nama,
@@ -45,6 +46,19 @@ class ProdukController extends Controller
                 'harga_beli' => preg_replace('/[^0-9]/', '', $request->harga_beli),
                 'harga_jual' => preg_replace('/[^0-9]/', '', $request->harga_jual),
             ];
+
+            if($request->hasFile('foto')) {
+                $foto = $request->file('foto');
+                $fileName = str_replace(' ', '', $request->nama) . '-' . time() . '.' . $foto->getClientOriginalExtension();
+                $savePath = 'assets/uploads/produk';
+
+                if(!file_exists($savePath)) {
+                    mkdir($savePath, 655, true);
+                }
+
+                $foto->move($savePath, $fileName);
+                $produk['foto'] = $savePath . '/' . $fileName;
+            }
 
             Produk::create($produk);
 
@@ -90,6 +104,19 @@ class ProdukController extends Controller
                 'harga_jual' => preg_replace('/[^0-9]/', '', $request->harga_jual),
             ];
 
+            if($request->hasFile('foto')) {
+                $foto = $request->file('foto');
+                $fileName = str_replace(' ', '', $request->nama) . '-' . time() . '.' . $foto->getClientOriginalExtension();
+                $savePath = 'assets/uploads/produk';
+
+                if(!file_exists($savePath)) {
+                    mkdir($savePath, 655, true);
+                }
+
+                $foto->move($savePath, $fileName);
+                $data['foto'] = $savePath . '/' . $fileName;
+            }
+
             $produk->update($data);
 
             return redirect()->route('produk.index')->with([
@@ -106,6 +133,16 @@ class ProdukController extends Controller
                 'title' => 'Gagal'
             ]);
         }
+    }
+
+    public function print(Request $request) {
+        $produk = Produk::all();
+
+        $view = [
+            'data' => view('main.produk.print', compact('produk'))->render(),
+        ];
+
+        return response()->json($view);
     }
 }
 

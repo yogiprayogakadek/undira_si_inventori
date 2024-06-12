@@ -45,15 +45,13 @@
                 </li>
             @endcan
 
-            @cannot('admin')
-                <li class="nav-item {{ Request::is('produk-keluar') ? 'active' : '' }}">
-                    <a class="nav-item-hold" href="{{ route('produk-keluar.index') }}">
-                        <i class="nav-icon i-Rocket"></i>
-                        <span class="nav-text">Produk Keluar</span>
-                    </a>
-                    <div class="triangle"></div>
-                </li>
-            @endcannot
+            <li class="nav-item {{ Request::is('produk-keluar') ? 'active' : '' }}">
+                <a class="nav-item-hold" href="{{ route('produk-keluar.index') }}">
+                    <i class="nav-icon i-Rocket"></i>
+                    <span class="nav-text">Produk Keluar</span>
+                </a>
+                <div class="triangle"></div>
+            </li>
 
             <li class="nav-item {{ Request::is('produk-request') ? 'active' : '' }}">
                 <a class="nav-item-hold" href="{{ route('produk-request.index') }}">

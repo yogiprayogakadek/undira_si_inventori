@@ -8,6 +8,9 @@
                 {{-- @can('Admin')   --}}
                 <div class="col-6 d-flex align-items-center">
                     <div class="m-auto"></div>
+                    <button type="button" class="btn btn-outline-success btn-print mr-2">
+                        <i class="nav-icon i-Download-Window font-weight-bold"></i> Print
+                    </button>
                     <button type="button" class="btn btn-outline-primary btn-add">
                         <i class="nav-icon i-Pen-2 font-weight-bold"></i> Tambah
                     </button>
@@ -23,7 +26,8 @@
                     <th>Harga Beli</th>
                     <th>Harga Jual</th>
                     <th>Stok</th>
-                    <th>Jenis Produk</th>
+                    {{-- <th>Jenis Produk</th> --}}
+                    <th>Foto Produk</th>
                     <th>Keterangan</th>
                     <th>Status</th>
                     {{-- @can('Admin')   --}}
@@ -38,7 +42,13 @@
                             <td>{{ 'Rp ' . number_format($produk->harga_beli, 0, '.', '.') }}</td>
                             <td>{{ 'Rp ' . number_format($produk->harga_jual, 0, '.', '.') }}</td>
                             <td>{{ $produk->stok }}</td>
-                            <td>{{ $produk->jenis }}</td>
+                            {{-- <td>{{ $produk->jenis }}</td> --}}
+                            {{-- <td>
+                                <img src="{{ asset($produk->foto) }}" width="100px">
+                            </td> --}}
+                            <td>
+                                <a href="{{ asset($produk->foto) }}" target="_blank">Lihat foto</a>
+                            </td>
                             <td>{{ $produk->keterangan }}</td>
                             <td>{{ $produk->status == true ? 'Aktif' : 'Tidak Aktif' }}</td>
                             {{-- @can('Admin')    --}}

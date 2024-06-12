@@ -8,6 +8,9 @@
                 {{-- @can('Admin')   --}}
                 <div class="col-6 d-flex align-items-center">
                     <div class="m-auto"></div>
+                    <button type="button" class="btn btn-outline-success btn-print mr-2">
+                        <i class="nav-icon i-Download-Window font-weight-bold"></i> Print
+                    </button>
                     <button type="button" class="btn btn-outline-primary btn-add">
                         <i class="nav-icon i-Pen-2 font-weight-bold"></i> Tambah
                     </button>

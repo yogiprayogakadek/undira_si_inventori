@@ -16,8 +16,8 @@
                 </div>
             </div>
             <div class="card-body">
-                <input type="hidden" name="produk_request_id" id="id" class="form-control produk-keluar-id"
-                    value="{{ $produk->id }}">
+                <input type="hidden" name="produk_request_id" id="produk_request_id"
+                    class="form-control produk-keluar-id" value="{{ $produk->id }}">
                 <div class="form-group row">
                     <label for="tanggal_request" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
                         Tanggal

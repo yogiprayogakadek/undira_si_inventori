@@ -38,12 +38,27 @@ class ProdukMasukController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         try {
             $data = [
                 'supplier_id' => $request->supplier_id,
+                'jenis_pembayaran' => $request->jenis_pembayaran,
                 'data' => json_encode(json_decode($request->list_produk, true)[0]['data']),
                 'tanggal_proses' => date_format(date_create($request->tanggal_proses), 'Y-m-d'),
             ];
+
+            if($request->hasFile('bukti_pembayaran')) {
+                $bukti_pembayaran = $request->file('bukti_pembayaran');
+                $fileName = str_replace(' ', '', $request->supplier_id) . '-' . time() . '.' . $bukti_pembayaran->getClientOriginalExtension();
+                $savePath = 'assets/uploads/bukti';
+
+                if(!file_exists($savePath)) {
+                    mkdir($savePath, 655, true);
+                }
+
+                $bukti_pembayaran->move($savePath, $fileName);
+                $data['bukti_pembayaran'] = $savePath . '/' . $fileName;
+            }
 
             foreach (json_decode($request->list_produk, true)[0]['data'] as $key => $value) {
                 $produk = Produk::find($value['produkId']);
@@ -90,9 +105,23 @@ class ProdukMasukController extends Controller
             // dd($request->all());
             $data = [
                 // 'supplier_id' => $request->supplier_id,
+                'jenis_pembayaran' => $request->jenis_pembayaran,
                 'data' => json_encode(json_decode($request->list_produk, true)[0]['data']),
                 'tanggal_proses' => date_format(date_create($request->tanggal_proses), 'Y-m-d'),
             ];
+
+            if($request->hasFile('bukti_pembayaran')) {
+                $bukti_pembayaran = $request->file('bukti_pembayaran');
+                $fileName = str_replace(' ', '', $request->supplier_id) . '-' . time() . '.' . $bukti_pembayaran->getClientOriginalExtension();
+                $savePath = 'assets/uploads/bukti';
+
+                if(!file_exists($savePath)) {
+                    mkdir($savePath, 655, true);
+                }
+
+                $bukti_pembayaran->move($savePath, $fileName);
+                $data['bukti_pembayaran'] = $savePath . '/' . $fileName;
+            }
 
             // update ++ stok
             foreach (json_decode($produkMasuk->data, true) as $key => $value) {
@@ -140,5 +169,16 @@ class ProdukMasukController extends Controller
         $produkMasuk = ProdukMasuk::find($id);
 
         return response()->json(json_decode($produkMasuk->data, true));
+    }
+
+    public function print(Request $request)
+    {
+        $produk = ProdukMasuk::with(['supplier'])->whereBetween('tanggal_proses', [$request->tanggal_awal, $request->tanggal_akhir])->get();
+
+        $view = [
+            'data' => view('main.produk-masuk.print', compact('produk'))->render(),
+        ];
+
+        return response()->json($view);
     }
 }

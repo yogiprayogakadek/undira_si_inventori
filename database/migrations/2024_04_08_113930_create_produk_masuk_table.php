@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('supplier_id')->references('id')->on('supplier')->onDelete('cascade');
             $table->json('data');
             $table->date('tanggal_proses');
+            $table->enum('jenis_pembayaran', ['cash', 'transfer']);
+            $table->string('bukti_pembayaran');
             $table->timestamps();
         });
     }

@@ -210,8 +210,9 @@ $(document).ready(function () {
                 data: {
                     'tanggal_proses': tanggal_proses,
                     'list_produk': localStorage.getItem('listProduk'),
-                    'produk_masuk_id': $('input[name=produk_masuk_id]').val(),
+                    'produk_request_id': $('input[name=produk_request_id]').val(),
                     'supplier_id': $('#supplier_id').find(":selected").val(),
+                    // 'produk_request_id': $('input[name=produk_masuk_id]').val(),
                 },
                 // data: data,
                 // processData: false,
@@ -458,6 +459,57 @@ $(document).ready(function () {
                 });
             } else {
                 $(this).val(currentStatus)
+            }
+        });
+    });
+
+    // print data
+    $("body").on("click", ".btn-print", function() {
+        // let tanggalAwal = $('.tanggal-awal').val();
+        // let tanggalAkhir = $('.tanggal-akhir').val();
+        // let kategori = $('#kategori').val();
+
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+        });
+
+        Swal.fire({
+            title: "Cetak data produk request?",
+            // text: "Laporan akan dicetak",
+            icon: "success",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya, cetak!",
+        }).then((result) => {
+            if (result.value) {
+                var mode = "iframe"; //popup
+                var close = mode == "popup";
+                var options = {
+                    mode: mode,
+                    popClose: close,
+                    popTitle: "LaporanProdukRequest",
+                    popOrient: "Portrait",
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "/produk-request/print",
+                    // data: {
+                    //     tanggal_awal: tanggalAwal,
+                    //     tanggal_akhir: tanggalAkhir,
+                    //     kategori: kategori
+                    // },
+                    success: function(response) {
+                        document.title =
+                            "SIM Rekam Medis | RSD Mangusada - Print" +
+                            new Date().toJSON().slice(0, 10).replace(/-/g, "/");
+                        $(response.data)
+                            .find("div.printableArea")
+                            .printArea(options);
+                    },
+                });
             }
         });
     });

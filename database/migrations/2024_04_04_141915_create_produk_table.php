@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('nama', 100);
             $table->integer('stok');
-            // $table->string('jenis', 100);
             $table->integer('harga_beli');
             $table->integer('harga_jual');
             $table->text('keterangan');
+            $table->string('foto', 100);
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

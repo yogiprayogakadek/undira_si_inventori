@@ -35,7 +35,13 @@ class ProdukRequest extends FormRequest
 
         if (Request::instance()->has('id')) {
             $rules += [
-                'status' => 'required'
+                'status' => 'required',
+                'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            ];
+        } else {
+            $rules += [
+                'status' => 'nullable',
+                'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             ];
         }
 
@@ -68,6 +74,7 @@ class ProdukRequest extends FormRequest
             'harga_jual' => 'Harga jual',
             'harga_beli' => 'Harga beli',
             'status' => 'Status',
+            'foto' => 'Foto produk',
         ];
     }
 }

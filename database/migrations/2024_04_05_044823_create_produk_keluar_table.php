@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('nama_customer', 100);
             $table->char('no_telp', 16);
             $table->date('tanggal_proses');
+            $table->enum('jenis_pembayaran', ['cash', 'transfer']);
+            $table->string('bukti_pembayaran');
             $table->timestamps();
         });
     }

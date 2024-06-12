@@ -47,6 +47,30 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="jenis_pembayaran" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                        Jenis Pembayaran
+                    </label>
+                    <div class="col-lg-11">
+                        <select name="jenis_pembayaran" id="jenis_pembayaran" class="form-control jenis_pembayaran">
+                            <option value="">Pilih jenis pembayaran...</option>
+                            <option value="cash" {{ $produk->jenis_pembayaran == 'cash' ? 'selected' : '' }}>Cash
+                            </option>
+                            <option value="transfer" {{ $produk->jenis_pembayaran == 'transfer' ? 'selected' : '' }}>
+                                Transfer</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="bukti_pembayaran" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                        Bukti Pembayaran
+                    </label>
+                    <div class="col-lg-11">
+                        <input type="file" class="form-control" name="bukti_pembayaran" id="bukti_pembayaran"
+                            placeholder="masukkan bukti pembayaran" autocomplete="off" autofocus>
+                        <span class="text-small text-muted">*kosongkan jika tidak ada perubahan</span>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="btn-search" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">
                         Data Produk
                     </label>

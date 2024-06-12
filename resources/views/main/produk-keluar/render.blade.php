@@ -5,14 +5,17 @@
                 <div class="col-6">
                     Data Produk Keluar
                 </div>
-                {{-- @can('Admin')   --}}
                 <div class="col-6 d-flex align-items-center">
                     <div class="m-auto"></div>
-                    <button type="button" class="btn btn-outline-primary btn-add">
-                        <i class="nav-icon i-Pen-2 font-weight-bold"></i> Tambah
+                    <button type="button" class="btn btn-outline-success btn-print mr-2">
+                        <i class="nav-icon i-Download-Window font-weight-bold"></i> Print
                     </button>
+                    @cannot('admin')
+                        <button type="button" class="btn btn-outline-primary btn-add">
+                            <i class="nav-icon i-Pen-2 font-weight-bold"></i> Tambah
+                        </button>
+                    @endcannot
                 </div>
-                {{-- @endcan --}}
             </div>
         </div>
         <div class="card-body">
@@ -23,10 +26,12 @@
                     <th>Tanggal</th>
                     <th>Customer</th>
                     <th>No. Telp</th>
+                    <th>Jenis Pembayaran</th>
+                    <th>Bukti Pembayaran</th>
                     <th>Data Produk</th>
-                    {{-- @can('Admin')   --}}
-                    <th>Aksi</th>
-                    {{-- @endcan --}}
+                    @cannot('admin')
+                        <th>Aksi</th>
+                    @endcannot
                 </thead>
                 <tbody>
                     @foreach ($produk as $produk)
@@ -36,21 +41,25 @@
                             <td>{{ date_format(date_create($produk->tanggal_proses), 'd-m-Y') }}</td>
                             <td>{{ $produk->nama_customer }}</td>
                             <td>{{ $produk->no_telp }}</td>
+                            <td>{{ ucfirst($produk->jenis_pembayaran) }}</td>
+                            <td>
+                                <a href="{{ asset($produk->bukti_pembayaran) }}" target="_blank">Lihat bukti</a>
+                            </td>
                             <td>
                                 <span class="badge badge-primary data-produk" data-id="{{ $produk->id }}"
                                     data-customer="{{ $produk->nama_customer }}" data-telp="{{ $produk->no_telp }}"
                                     style="cursor: pointer;">Lihat</span>
                             </td>
-                            {{-- @can('Admin')    --}}
-                            <td>
-                                <button class="btn btn-edit btn-default" data-id="{{ $produk->id }}">
-                                    <i class="fa fa-eye text-success mr-2 pointer"></i> Edit
-                                </button>
-                                {{-- <button class="btn btn-validasi {{$produk->status == true ? 'btn-danger' : 'btn-info'}}" data-id="{{$produk->id}}">
+                            @cannot('admin')
+                                <td>
+                                    <button class="btn btn-edit btn-default" data-id="{{ $produk->id }}">
+                                        <i class="fa fa-eye text-success mr-2 pointer"></i> Edit
+                                    </button>
+                                    {{-- <button class="btn btn-validasi {{$produk->status == true ? 'btn-danger' : 'btn-info'}}" data-id="{{$produk->id}}">
                                 <i class="fa {{$produk->status == true ? 'fa fa-ban' : 'fa-check-circle'}} text-success ml-2 pointer"></i> {{$produk->status == true ? 'Non-Aktifkan' : 'Aktifkan'}}
                             </button> --}}
-                            </td>
-                            {{-- @endcan --}}
+                                </td>
+                            @endcannot
                         </tr>
                     @endforeach
                 </tbody>
@@ -97,6 +106,39 @@
     </div>
 </div>
 
+{{-- Filter Modal & Print Modal --}}
+<div class="modal fade" id="print-modal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Print Data</h5>
+                <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-danger btn-rounded">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="range-date">
+                    <div class="form-group" id="tanggal-awal">
+                        <label class="control-label mb-10">Tanggal Awal</label>
+                        <input type="date" class="form-control tanggal-awal form-validation" name="tanggal_awal">
+                        <div class="invalid-feedback error-tanggal-awal"></div>
+                    </div>
+                    <div class="form-group" id="tangal-akhir">
+                        <label class="control-label mb-10">Tanggal Akhir</label>
+                        <input type="date" class="form-control tanggal-akhir form-validation" name="tanggal_akhir">
+                        <div class="invalid-feedback error-tanggal-akhir"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-outline btn-print-data">Print</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- End --}}
+
 <script>
     var table = $('#tableData').DataTable({
         language: {
@@ -136,4 +178,59 @@
             cell.innerHTML = i + 1;
         });
     }).draw();
+
+    $('body').on('click', '.btn-print', function() {
+        $('#print-modal').modal('show')
+        $('.btn-search').show()
+        $('.btn-print-data').prop('disabled', true)
+
+        $('.tanggal-awal, .tanggal-akhir').val('');
+    });
+
+    function validateField(fieldClass, errorClass, errorMessage) {
+        const value = $(fieldClass).val();
+        const formGroup = $(fieldClass).closest('.form-validation');
+        // const errorElement = formGroup.(errorClass);
+
+        if (value === '') {
+            formGroup.addClass('is-invalid');
+            // console.log(errorElement)
+            $(errorClass).text(errorMessage);
+        } else {
+            formGroup.removeClass('is-invalid');
+            $(errorClass).text('');
+            // errorElement.text('');
+        }
+    }
+
+    function validateDates() {
+        const tanggalAwal = $('.tanggal-awal').val();
+        const tanggalAkhir = $('.tanggal-akhir').val();
+
+        let title = $('#filter-modal .modal-title').text();
+        let $button = title == 'Filter Data' ? $('.btn-search') : $('.btn-print-data');
+        $button.prop('disabled', !tanggalAwal || !tanggalAkhir);
+
+        // Validasi individual tanggal
+        validateField('.tanggal-awal', '.error-tanggal-awal', 'Mohon isi tanggal awal');
+        validateField('.tanggal-akhir', '.error-tanggal-akhir', 'Mohon isi tanggal akhir');
+
+        // Validasi bahwa tanggal akhir tidak sebelum tanggal awal
+        if (tanggalAwal && tanggalAkhir) {
+            const dateAwal = new Date(tanggalAwal);
+            const dateAkhir = new Date(tanggalAkhir);
+            console.log(dateAkhir)
+            if (dateAkhir < dateAwal) {
+                console.log('salah')
+                $('.tanggal-akhir').addClass('is-invalid');
+                $('.error-tanggal-akhir').text('Tanggal akhir tidak boleh kurang dari tanggal awal');
+                $('.btn-print-data').prop('disabled', true);
+            } else {
+                console.log('benar')
+                $('.tanggal-akhir').removeClass('is-invalid');
+                $('.error-tanggal-akhir').text('');
+            }
+        }
+    }
+    $('.tanggal-awal, .tanggal-akhir').on('change', validateDates);
 </script>

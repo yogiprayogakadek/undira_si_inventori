@@ -139,4 +139,14 @@ class ProdukRequestController extends Controller
             ]);
         }
     }
+
+    public function print(Request $request) {
+        $produk = ProdukRequest::with(['staff'])->get();
+
+        $view = [
+            'data' => view('main.produk-request.print', compact('produk'))->render(),
+        ];
+
+        return response()->json($view);
+    }
 }

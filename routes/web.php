@@ -34,6 +34,7 @@ Route::namespace('Main')->middleware('auth')->group(function() {
             Route::get('/edit/{id}', 'edit')->name('edit');
             Route::post('/store', 'store')->name('store');
             Route::post('/update', 'update')->name('update');
+            Route::post('/print', 'print')->name('print');
         });
 
     Route::controller('SupplierController')
@@ -46,6 +47,7 @@ Route::namespace('Main')->middleware('auth')->group(function() {
             Route::get('/edit/{id}', 'edit')->name('edit');
             Route::post('/store', 'store')->name('store');
             Route::post('/update', 'update')->name('update');
+            Route::post('/print', 'print')->name('print');
         });
 
     Route::controller('ProdukController')
@@ -58,6 +60,7 @@ Route::namespace('Main')->middleware('auth')->group(function() {
             Route::get('/edit/{id}', 'edit')->name('edit');
             Route::post('/store', 'store')->name('store');
             Route::post('/update', 'update')->name('update');
+            Route::post('/print', 'print')->name('print');
         });
 
     Route::controller('ProdukKeluarController')
@@ -70,6 +73,7 @@ Route::namespace('Main')->middleware('auth')->group(function() {
             Route::get('/edit/{id}', 'edit')->name('edit');
             Route::post('/store', 'store')->name('store');
             Route::post('/update', 'update')->name('update');
+            Route::post('/print', 'print')->name('print');
 
             // get list produk
             Route::get('/list-produk', 'listProduk')->name('list-produk');
@@ -86,6 +90,7 @@ Route::namespace('Main')->middleware('auth')->group(function() {
             Route::get('/edit/{id}', 'edit')->name('edit');
             Route::post('/store', 'store')->name('store');
             Route::post('/update', 'update')->name('update');
+            Route::post('/print', 'print')->name('print');
 
             // get list produk
             Route::get('/list-produk', 'listProduk')->name('list-produk');
@@ -102,6 +107,7 @@ Route::namespace('Main')->middleware('auth')->group(function() {
             Route::get('/edit/{id}', 'edit')->name('edit');
             Route::post('/store', 'store')->name('store');
             Route::post('/update', 'update')->name('update');
+            Route::post('/print', 'print')->name('print');
 
             // get list produk
             Route::get('/list-produk', 'listProduk')->name('list-produk');

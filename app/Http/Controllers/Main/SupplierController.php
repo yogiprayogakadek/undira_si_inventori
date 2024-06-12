@@ -101,4 +101,14 @@ class SupplierController extends Controller
             ]);
         }
     }
+
+    public function print(Request $request) {
+        $supplier = Supplier::all();
+
+        $view = [
+            'data' => view('main.supplier.print', compact('supplier'))->render(),
+        ];
+
+        return response()->json($view);
+    }
 }

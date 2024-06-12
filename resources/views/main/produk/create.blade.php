@@ -1,5 +1,5 @@
 <div class="col-12">
-    <form action="{{ route('produk.store') }}" method="POST" id="form">
+    <form action="{{ route('produk.store') }}" method="POST" id="form" enctype="multipart/form-data">
         @csrf
         <div class="card">
             <div class="card-header">
@@ -64,6 +64,15 @@
                         </select>
                     </div>
                 </div> --}}
+                <div class="form-group row">
+                    <label for="foto" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                        Foto
+                    </label>
+                    <div class="col-lg-11">
+                        <input type="file" class="form-control" name="foto" id="foto"
+                            placeholder="masukkan foto produk" autocomplete="off" autofocus>
+                    </div>
+                </div>
                 <div class="form-group row">
                     <label for="Keterangan" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
                         Keterangan

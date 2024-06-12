@@ -12485,7 +12485,7 @@ button.bg-gray-900:hover {
     }
 }
 
-@media print {
+/* @media print {
     .d-print-none {
         display: none !important
     }
@@ -12521,7 +12521,7 @@ button.bg-gray-900:hover {
     .d-print-inline-flex {
         display: inline-flex !important
     }
-}
+} */
 
 .embed-responsive {
     position: relative;
@@ -15312,7 +15312,7 @@ a.text-gray-900:hover {
     visibility: hidden !important
 }
 
-@media print {
+/* @media print {
 
     *,
     :after,
@@ -15406,7 +15406,7 @@ a.text-gray-900:hover {
         color: inherit;
         border-color: #dee2e6
     }
-}
+} */
 
 [dir=rtl] .text-left {
     text-align: right !important
@@ -32752,7 +32752,7 @@ div.tab-border {
     margin: 0 .75rem
 }
 
-@media print {
+/* @media print {
     body * {
         visibility: hidden
     }
@@ -32772,7 +32772,7 @@ div.tab-border {
         top: 0;
         width: 100%
     }
-}
+} */
 
 [dir=rtl] .invoice-summary {
     text-align: left !important

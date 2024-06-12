@@ -112,4 +112,15 @@ class PenggunaController extends Controller
             ]);
         }
     }
+
+    public function print(Request $request)
+    {
+        $pengguna = Pengguna::all();
+
+        $view = [
+            'data' => view('main.pengguna.print', compact('pengguna'))->render(),
+        ];
+
+        return response()->json($view);
+    }
 }
