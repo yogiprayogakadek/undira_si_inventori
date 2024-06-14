@@ -464,10 +464,9 @@ $(document).ready(function () {
     });
 
     // print data
-    $("body").on("click", ".btn-print", function() {
-        // let tanggalAwal = $('.tanggal-awal').val();
-        // let tanggalAkhir = $('.tanggal-akhir').val();
-        // let kategori = $('#kategori').val();
+    $("body").on("click", ".btn-print-data", function() {
+        let tanggalAwal = $('.tanggal-awal').val();
+        let tanggalAkhir = $('.tanggal-akhir').val();
 
         $.ajaxSetup({
             headers: {
@@ -496,11 +495,10 @@ $(document).ready(function () {
                 $.ajax({
                     type: "POST",
                     url: "/produk-request/print",
-                    // data: {
-                    //     tanggal_awal: tanggalAwal,
-                    //     tanggal_akhir: tanggalAkhir,
-                    //     kategori: kategori
-                    // },
+                    data: {
+                        tanggal_awal: tanggalAwal,
+                        tanggal_akhir: tanggalAkhir,
+                    },
                     success: function(response) {
                         document.title =
                             "SIM Rekam Medis | RSD Mangusada - Print" +

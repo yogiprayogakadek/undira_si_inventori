@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UpdateProfilRequest;
 use App\Models\Pengguna;
+use App\Models\ProdukKeluar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -74,4 +76,31 @@ class DashboardController extends Controller
             ]);
         }
     }
+
+    public function chart(Request $request)
+{
+    $tanggal_awal = date_format(date_create($request->input('tanggal_awal')), 'Y-m-d');
+    $tanggal_akhir = date_format(date_create($request->input('tanggal_akhir')), 'Y-m-d');
+
+    $produkKeluar = ProdukKeluar::with(['pengguna'])->whereBetween('tanggal_proses', [$tanggal_awal, $tanggal_akhir])->get();
+
+    $chartData = [];
+    foreach ($produkKeluar as $keluar) {
+        $penggunaNama = $keluar->pengguna->nama;
+        foreach (json_decode($keluar->data, true) as $value) {
+            if (!isset($chartData[$penggunaNama])) {
+                $chartData[$penggunaNama] = 0;
+            }
+            $chartData[$penggunaNama] += $value['jumlah'];
+        }
+    }
+
+    $formattedData = [];
+    foreach ($chartData as $name => $value) {
+        $formattedData[] = ['name' => $name, 'value' => $value];
+    }
+
+    return response()->json($formattedData);
+}
+
 }

@@ -209,12 +209,10 @@
             const dateAkhir = new Date(tanggalAkhir);
             console.log(dateAkhir)
             if (dateAkhir < dateAwal) {
-                console.log('salah')
                 $('.tanggal-akhir').addClass('is-invalid');
                 $('.error-tanggal-akhir').text('Tanggal akhir tidak boleh kurang dari tanggal awal');
                 $('.btn-print-data').prop('disabled', true);
             } else {
-                console.log('benar')
                 $('.tanggal-akhir').removeClass('is-invalid');
                 $('.error-tanggal-akhir').text('');
             }

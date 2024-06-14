@@ -20,6 +20,7 @@ Route::namespace('Main')->middleware('auth')->group(function() {
         ->name('dashboard.')
         ->group(function() {
             Route::get('/', 'index')->name('index');
+            Route::post('/chart', 'chart')->name('chart');
             Route::post('/update-profil', 'updateProfil')->name('update.profil');
             Route::post('/update-password', 'updatePassword')->name('update.password');
         });

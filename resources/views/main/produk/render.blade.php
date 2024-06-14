@@ -5,17 +5,17 @@
                 <div class="col-6">
                     Data Produk
                 </div>
-                {{-- @can('Admin')   --}}
                 <div class="col-6 d-flex align-items-center">
                     <div class="m-auto"></div>
                     <button type="button" class="btn btn-outline-success btn-print mr-2">
                         <i class="nav-icon i-Download-Window font-weight-bold"></i> Print
                     </button>
-                    <button type="button" class="btn btn-outline-primary btn-add">
-                        <i class="nav-icon i-Pen-2 font-weight-bold"></i> Tambah
-                    </button>
+                    @can('admin')
+                        <button type="button" class="btn btn-outline-primary btn-add">
+                            <i class="nav-icon i-Pen-2 font-weight-bold"></i> Tambah
+                        </button>
+                    @endcan
                 </div>
-                {{-- @endcan --}}
             </div>
         </div>
         <div class="card-body">
@@ -30,9 +30,9 @@
                     <th>Foto Produk</th>
                     <th>Keterangan</th>
                     <th>Status</th>
-                    {{-- @can('Admin')   --}}
-                    <th>Aksi</th>
-                    {{-- @endcan --}}
+                    @can('admin')
+                        <th>Aksi</th>
+                    @endcan
                 </thead>
                 <tbody>
                     @foreach ($produk as $produk)
@@ -51,16 +51,16 @@
                             </td>
                             <td>{{ $produk->keterangan }}</td>
                             <td>{{ $produk->status == true ? 'Aktif' : 'Tidak Aktif' }}</td>
-                            {{-- @can('Admin')    --}}
-                            <td>
-                                <button class="btn btn-edit btn-default" data-id="{{ $produk->id }}">
-                                    <i class="fa fa-eye text-success mr-2 pointer"></i> Edit
-                                </button>
-                                {{-- <button class="btn btn-validasi {{$produk->status == true ? 'btn-danger' : 'btn-info'}}" data-id="{{$produk->id}}">
+                            @can('admin')
+                                <td>
+                                    <button class="btn btn-edit btn-default" data-id="{{ $produk->id }}">
+                                        <i class="fa fa-eye text-success mr-2 pointer"></i> Edit
+                                    </button>
+                                    {{-- <button class="btn btn-validasi {{$produk->status == true ? 'btn-danger' : 'btn-info'}}" data-id="{{$produk->id}}">
                                 <i class="fa {{$produk->status == true ? 'fa fa-ban' : 'fa-check-circle'}} text-success ml-2 pointer"></i> {{$produk->status == true ? 'Non-Aktifkan' : 'Aktifkan'}}
                             </button> --}}
-                            </td>
-                            {{-- @endcan --}}
+                                </td>
+                            @endcan
                         </tr>
                     @endforeach
                 </tbody>

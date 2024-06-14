@@ -39,4 +39,9 @@ class Pengguna extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function produkKeluar()
+    {
+        return $this->hasMany(ProdukKeluar::class, 'pengguna_id', 'id');
+    }
 }

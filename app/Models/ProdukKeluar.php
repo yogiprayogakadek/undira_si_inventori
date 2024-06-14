@@ -12,7 +12,7 @@ class ProdukKeluar extends Model
     protected $guarded = ['id'];
     protected $table = 'produk_keluar';
 
-    protected function pengguna()
+    public function pengguna()
     {
         return $this->belongsTo(Pengguna::class, 'pengguna_id');
     }

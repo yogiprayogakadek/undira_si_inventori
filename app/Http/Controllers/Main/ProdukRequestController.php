@@ -16,7 +16,11 @@ class ProdukRequestController extends Controller
 
     public function render()
     {
-        $produk = ProdukRequest::with(['staff'])->get();
+        if(auth()->user()->level == 'admin') {
+            $produk = ProdukRequest::with(['staff'])->get();
+        } else {
+            $produk = ProdukRequest::with(['staff'])->where('pengguna_id', auth()->user()->id)->get();
+        }
         $view = [
             'data' => view('main.produk-request.render', compact('produk'))->render(),
         ];
@@ -141,7 +145,16 @@ class ProdukRequestController extends Controller
     }
 
     public function print(Request $request) {
-        $produk = ProdukRequest::with(['staff'])->get();
+        if(auth()->user()->level == 'admin') {
+            $produk = ProdukRequest::with(['staff'])
+                        ->whereBetween('tanggal_request', [$request->tanggal_awal, $request->tanggal_akhir])
+                        ->get();
+        } else {
+            $produk = ProdukRequest::with(['staff'])
+                        ->where('pengguna_id', auth()->user()->id)
+                        ->whereBetween('tanggal_request', [$request->tanggal_awal, $request->tanggal_akhir])
+                        ->get();
+        }
 
         $view = [
             'data' => view('main.produk-request.print', compact('produk'))->render(),

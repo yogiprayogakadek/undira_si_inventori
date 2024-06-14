@@ -30,6 +30,7 @@ class ProdukOutRequest extends FormRequest
             'nama_customer' => 'required|string',
             'tanggal_proses' => 'required|date',
             'no_telp' => 'required|numeric',
+            'kondisi_pasien' => 'required',
         ];
 
         return $rules;
@@ -59,6 +60,7 @@ class ProdukOutRequest extends FormRequest
             'tanggal_proses' => 'Tanggal',
             'nama_customer' => 'Nama customer',
             'no_telp' => 'No. telp',
+            'kondisi_pasien' => 'Kondisi pasien'
         ];
     }
 }

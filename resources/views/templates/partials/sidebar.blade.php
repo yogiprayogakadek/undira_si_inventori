@@ -19,23 +19,26 @@
                 </li>
             @endcan
 
-            <li class="nav-item {{ Request::is('supplier') ? 'active' : '' }}">
-                <a class="nav-item-hold" href="{{ route('supplier.index') }}">
-                    <i class="nav-icon i-Students"></i>
-                    <span class="nav-text">Supplier</span>
+            @can('admin')
+                <li class="nav-item {{ Request::is('supplier') ? 'active' : '' }}">
+                    <a class="nav-item-hold" href="{{ route('supplier.index') }}">
+                        <i class="nav-icon i-Students"></i>
+                        <span class="nav-text">Supplier</span>
+                    </a>
+                    <div class="triangle"></div>
+                </li>
+            @endcan
+
+
+            <li class="nav-item {{ Request::is('produk') ? 'active' : '' }}">
+                <a class="nav-item-hold" href="{{ route('produk.index') }}">
+                    <i class="nav-icon i-Suitcase"></i>
+                    <span class="nav-text">Produk</span>
                 </a>
                 <div class="triangle"></div>
             </li>
 
-
             @can('admin')
-                <li class="nav-item {{ Request::is('produk') ? 'active' : '' }}">
-                    <a class="nav-item-hold" href="{{ route('produk.index') }}">
-                        <i class="nav-icon i-Suitcase"></i>
-                        <span class="nav-text">Produk</span>
-                    </a>
-                    <div class="triangle"></div>
-                </li>
                 <li class="nav-item {{ Request::is('produk-masuk') ? 'active' : '' }}">
                     <a class="nav-item-hold" href="{{ route('produk-masuk.index') }}">
                         <i class="nav-icon i-Share"></i>

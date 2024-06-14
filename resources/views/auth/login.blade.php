@@ -1,147 +1,96 @@
-<html lang="en" data-theme="light">
+<!doctype html>
+<html lang="en">
 
 <head>
+    <title>PT. NUSANTARA PRIMA DJAYA</title>
+    <link rel="icon" href="{{ asset('assets/images/logo.png') }}" sizes="any">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta content="Webinning" name="author">
-
-    <!-- Theme CSS -->
-    <link rel="stylesheet" href="https://dashly-theme.com/assets/css/theme.bundle.css" id="stylesheetLTR">
-    <link rel="stylesheet" href="https://dashly-theme.com/assets/css/theme.rtl.bundle.css" id="stylesheetRTL"
-        disabled="">
-
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link rel="preload" as="style"
-        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&amp;display=swap">
-    <link rel="stylesheet" onload="this.onload=null;this.removeAttribute('media');"
-        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&amp;display=swap">
-
-    <!-- no-JS fallback -->
-    <noscript>
-        <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap">
-    </noscript>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://preview.colorlib.com/theme/bootstrap/login-form-14/css/style.css">
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <!-- Favicon -->
-    <link rel="icon" href="{{ asset('assets/images/logo.png') }}" sizes="any">
-    <!-- Page Title -->
-    <title>PT. NUSANTARA PRIMA DJAYA</title>
 </head>
 
-<body class="d-flex align-items-center bg-light-green">
-    <!-- MAIN CONTENT -->
-    <main class="container-fluid">
-        <div class="row align-items-center justify-content-center">
-            <div class="col-md-7 col-lg-6 px-lg-4 px-xl-8 d-flex flex-column vh-100 py-6">
-
-                <!-- Brand -->
-                <a class="navbar-brand mb-auto" href="javascript:void(0)">
-                    <img src="{{ asset('assets/images/logo.png') }}" class="navbar-brand-img logo-light logo-large"
-                        alt="..." style="width: 140px !important; height: 100px !important;">
-                    <img src="{{ asset('assets/images/logo.png') }}" class="navbar-brand-img logo-dark logo-large"
-                        alt="..." style="width: 140px !important; height: 100px !important;">
-                </a>
-                <div>
-                    <!-- Title -->
-                    <h1 class="mb-2">
-                        PT. NUSANTARA PRIMA DJAYA
-                    </h1>
-
-                    <!-- Subtitle -->
-                    <p class="text-secondary">
-                        Masukkan username and password untuk login
-                    </p>
-
-                    <!-- Form -->
-                    <form role="form" action="{{ route('login') }}" method="POST">
-                        @csrf
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="mb-4">
-
-                                    <!-- Label -->
-                                    <label class="form-label">
-                                        Username
-                                    </label>
-
-                                    <!-- Input -->
-                                    <input type="text" class="form-control @error('username') is-invalid @enderror"
-                                        placeholder="masukkan username" name="username" id="username"
-                                        value="{{ old('username') }}">
+<body>
+    <section style="margin-top: 3em">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center">
+                    <h2 class="heading-section">
+                        <img src="{{ asset('assets/images/logo.png') }}" style="width: 150px">
+                    </h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-12 col-lg-10">
+                    <div class="wrap d-md-flex">
+                        <div class="img"
+                            style="background-image: url(https://asset.kompas.com/crops/mOKFrYHlSTM6SEt4aD9PIXZnJE0=/0x5:593x400/750x500/data/photo/2020/03/16/5e6ee88f78835.jpg);">
+                        </div>
+                        <div class="login-wrap p-4 p-md-5">
+                            <div class="d-flex">
+                                <div class="w-100">
+                                    <h3 class="mb-4">Sign In</h3>
+                                </div>
+                            </div>
+                            <form role="form" action="{{ route('login') }}" method="POST">
+                                @csrf
+                                <div class="form-group mb-3">
+                                    <label class="label" for="name">Username</label>
+                                    <input type="text" name="username" id="username"
+                                        class="form-control @error('username') is-invalid @enderror"
+                                        placeholder="Username" value="{{ old('username') }}">
                                     @error('username')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <!-- Password -->
-                                <div class="mb-4">
-
-                                    <div class="row">
-                                        <div class="col">
-
-                                            <!-- Label -->
-                                            <label class="form-label">
-                                                Password
-                                            </label>
-                                        </div>
-                                    </div> <!-- / .row -->
-
-                                    <!-- Input -->
-                                    <div class="input-group input-group-merge">
-                                        <input type="password"
-                                            class="form-control @error('password') is-invalid @enderror"
-                                            autocomplete="off" data-toggle-password-input=""
-                                            placeholder="masukkan password" name="password">
-
-                                        <button type="button" class="input-group-text px-4 text-secondary link-primary"
-                                            data-toggle-password=""></button>
-
-                                    </div>
-                                    <a href="javascript::void(0)" class="text-muted text-small forget-password">Lupa
-                                        password</a>
+                                <div class="form-group mb-3">
+                                    <label class="label" for="password">Password</label>
+                                    <input type="password" name="password" id="password"
+                                        class="form-control  @error('password') is-invalid @enderror"
+                                        placeholder="Password">
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
-                            </div>
-                        </div> <!-- / .row -->
-
-                        <!-- Button -->
-                        <button type="submit" class="btn btn-primary mt-3">
-                            Log in
-                        </button>
-                    </form>
-                </div>
-
-                <div class="mt-auto">
-
-                    <!-- Link -->
-                    <!-- {{-- <small class="mb-0 text-muted">
-                        Don't have an account yet? <a href="./sign-up-cover.html" class="fw-semibold">Sign up</a>
-                    </small> --}} -->
-                </div>
-
-            </div>
-
-            <div class="col-md-5 col-lg-6 d-none d-lg-block">
-
-                <!-- Image -->
-                <div class="bg-size-cover bg-position-center bg-repeat-no-repeat overlay overlay-dark overlay-50 vh-100 me-n4"
-                    style="background-image: url({{ asset('assets/styles/css/login/wallpaper.jpg') }});">
+                                <div class="form-group">
+                                    <button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign
+                                        In</button>
+                                </div>
+                                <div class="form-group d-md-flex">
+                                    <div class="w-50 text-left">
+                                        {{-- <label class="checkbox-wrap checkbox-primary mb-0">Remember Me
+                                            <input type="checkbox" checked>
+                                            <span class="checkmark"></span>
+                                        </label> --}}
+                                    </div>
+                                    <div class="w-50 text-md-right">
+                                        <a href="javascript::void(0)" class="forget-password">Forgot Password</a>
+                                    </div>
+                                </div>
+                            </form>
+                            {{-- <p class="text-center">Not a member? <a data-toggle="tab" href="#signup">Sign Up</a></p> --}}
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div> <!-- / .row -->
-    </main> <!-- / main -->
-
-    <!-- JAVASCRIPT-->
-    <!-- Theme JS -->
-    <script src="https://dashly-theme.com/assets/js/theme.bundle.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        </div>
+    </section>
+    <script src="https://preview.colorlib.com/theme/bootstrap/login-form-14/js/jquery.min.js"></script>
+    <script src="https://preview.colorlib.com/theme/bootstrap/login-form-14/js/popper.js"></script>
+    <script src="https://preview.colorlib.com/theme/bootstrap/login-form-14/js/bootstrap.min.js"></script>
+    <script src="https://preview.colorlib.com/theme/bootstrap/login-form-14/js/main.js"></script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
+        integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+        data-cf-beacon='{"rayId":"893cdb541b906d1a","b":1,"version":"2024.4.1","token":"cd0b4b3a733644fc843ef0b185f98241"}'
+        crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-
     <script>
         $(document).ready(function() {
             $('body').on('click', '.forget-password', function() {
@@ -160,7 +109,6 @@
             @endif
         });
     </script>
-
 </body>
 
 </html>

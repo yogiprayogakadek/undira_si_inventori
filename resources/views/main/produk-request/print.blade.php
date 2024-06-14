@@ -39,10 +39,10 @@
                             <td>
                                 <div class="row">
                                     @foreach (json_decode($produk->data, true) as $item)
-                                        <div class="col-3">Nama Produk</div>
-                                        <div class="col-9">: {{ $item['namaProduk'] }}</div>
-                                        <div class="col-3">Jumlah</div>
-                                        <div class="col-9">: {{ $item['jumlah'] }}</div>
+                                        <div class="col-6">Nama Produk</div>
+                                        <div class="col-6">: {{ $item['namaProduk'] }}</div>
+                                        <div class="col-6">Jumlah</div>
+                                        <div class="col-6 mb-3">: {{ $item['jumlah'] }}</div>
                                     @endforeach
                                 </div>
                             </td>

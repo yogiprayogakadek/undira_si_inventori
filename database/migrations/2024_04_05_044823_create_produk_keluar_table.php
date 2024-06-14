@@ -23,6 +23,7 @@ return new class extends Migration
             $table->date('tanggal_proses');
             $table->enum('jenis_pembayaran', ['cash', 'transfer']);
             $table->string('bukti_pembayaran');
+            $table->text('kondisi_pasien');
             $table->timestamps();
         });
     }

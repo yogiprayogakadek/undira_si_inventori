@@ -217,7 +217,7 @@ $(document).ready(function () {
         let form = $('#formEdit')[0]
         let data = new FormData(form)
         data.append('list_produk', localStorage.getItem('listProduk'))
-        if(tanggal_proses == '' || jenis_pembayaran == '' || bukti_pembayaran == '' || no_telp == '' || localStorage.length == 0 || JSON.parse(localStorage.getItem('listProduk'))[0]['data'].length == 0) {
+        if(tanggal_proses == '' || jenis_pembayaran == '' || no_telp == '' || localStorage.length == 0 || JSON.parse(localStorage.getItem('listProduk'))[0]['data'].length == 0) {
             Swal.fire('Warning', 'Mohon untuk melengkapi form', 'error');
         } else {
             $.ajax({

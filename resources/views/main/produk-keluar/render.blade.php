@@ -28,6 +28,7 @@
                     <th>No. Telp</th>
                     <th>Jenis Pembayaran</th>
                     <th>Bukti Pembayaran</th>
+                    <th>Kondisi Pasien</th>
                     <th>Data Produk</th>
                     @cannot('admin')
                         <th>Aksi</th>
@@ -46,18 +47,24 @@
                                 <a href="{{ asset($produk->bukti_pembayaran) }}" target="_blank">Lihat bukti</a>
                             </td>
                             <td>
+                                <a href="javascript:void(0)" class="btn-kondisi"
+                                    data-kondisi="{{ $produk->kondisi_pasien }}">Lihat</a>
+                            </td>
+                            <td>
                                 <span class="badge badge-primary data-produk" data-id="{{ $produk->id }}"
                                     data-customer="{{ $produk->nama_customer }}" data-telp="{{ $produk->no_telp }}"
                                     style="cursor: pointer;">Lihat</span>
                             </td>
                             @cannot('admin')
                                 <td>
-                                    <button class="btn btn-edit btn-default" data-id="{{ $produk->id }}">
-                                        <i class="fa fa-eye text-success mr-2 pointer"></i> Edit
-                                    </button>
-                                    {{-- <button class="btn btn-validasi {{$produk->status == true ? 'btn-danger' : 'btn-info'}}" data-id="{{$produk->id}}">
-                                <i class="fa {{$produk->status == true ? 'fa fa-ban' : 'fa-check-circle'}} text-success ml-2 pointer"></i> {{$produk->status == true ? 'Non-Aktifkan' : 'Aktifkan'}}
-                            </button> --}}
+                                    @if (auth()->user()->id == $produk->pengguna_id)
+                                        <button class="btn btn-edit btn-default" data-id="{{ $produk->id }}">
+                                            <i class="fa fa-eye text-success mr-2 pointer"></i> Edit
+                                        </button>
+                                    @else
+                                        <span class="text-muted text-small" style="font-style: italic;">tidak ada hak
+                                            akses</span>
+                                    @endif
                                 </td>
                             @endcannot
                         </tr>
@@ -118,6 +125,7 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div class="kondisi"></div>
                 <div class="range-date">
                     <div class="form-group" id="tanggal-awal">
                         <label class="control-label mb-10">Tanggal Awal</label>
@@ -179,9 +187,23 @@
         });
     }).draw();
 
+    $('body').on('click', '.btn-kondisi', function() {
+        $('#print-modal').modal('show')
+        $('#print-modal .kondisi').show()
+        $('#print-modal .range-date').hide()
+        $('#print-modal .modal-title').text('Detail Kondisi Pasien');
+        $('#print-modal .kondisi').html('<span>' + $(this).data('kondisi') + '</span>')
+        $('.btn-search').hide()
+        $('.btn-print-data').hide()
+    });
+
     $('body').on('click', '.btn-print', function() {
         $('#print-modal').modal('show')
+        $('#print-modal .modal-title').text('Print Data');
+        $('#print-modal .kondisi').hide()
+        $('#print-modal .range-date').show()
         $('.btn-search').show()
+        $('.btn-print-data').show()
         $('.btn-print-data').prop('disabled', true)
 
         $('.tanggal-awal, .tanggal-akhir').val('');

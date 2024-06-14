@@ -47,6 +47,7 @@ class ProdukKeluarController extends Controller
                 'nama_customer' => $request->nama_customer,
                 'no_telp' => $request->no_telp,
                 'jenis_pembayaran' => $request->jenis_pembayaran,
+                'kondisi_pasien' => $request->kondisi_pasien,
                 'pengguna_id' => auth()->user()->id
             ];
 
@@ -112,6 +113,7 @@ class ProdukKeluarController extends Controller
                 'nama_customer' => $request->nama_customer,
                 'jenis_pembayaran' => $request->jenis_pembayaran,
                 'no_telp' => $request->no_telp,
+                'kondisi_pasien' => $request->kondisi_pasien,
                 'pengguna_id' => auth()->user()->id
             ];
 

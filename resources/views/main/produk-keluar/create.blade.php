@@ -77,6 +77,15 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="kondisi_pasien" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
+                        Kondisi Pasien
+                    </label>
+                    <div class="col-lg-11">
+                        <textarea name="kondisi_pasien" id="kondisi_pasien" class="form-control" rows="6"
+                            placeholder="keterangan kondisi pasien"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="btn-search" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">
                         Data Produk
                     </label>
@@ -181,7 +190,7 @@
         autoclose: true,
         endDate: "currentDate",
         maxDate: currentDate
-    }).on('changeDate', function(ev) {
+    }).on('change', function(ev) {
         $(this).datepicker('hide');
     });
     $('#tanggal_proses').keyup(function() {
