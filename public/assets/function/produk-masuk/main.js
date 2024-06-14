@@ -489,7 +489,7 @@ $(document).ready(function () {
                     },
                     success: function(response) {
                         document.title =
-                            "SIM Rekam Medis | RSD Mangusada - Print" +
+                            "PT. NUSANTARA PRIMA DJAYA - Print" +
                             new Date().toJSON().slice(0, 10).replace(/-/g, "/");
                         $(response.data)
                             .find("div.printableArea")
