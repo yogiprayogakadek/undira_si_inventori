@@ -27,7 +27,7 @@
                 <div class="col-md-12 col-lg-10">
                     <div class="wrap d-md-flex">
                         <div class="img"
-                            style="background-image: url(https://asset.kompas.com/crops/mOKFrYHlSTM6SEt4aD9PIXZnJE0=/0x5:593x400/750x500/data/photo/2020/03/16/5e6ee88f78835.jpg);">
+                            style="background-image: url(https://img.freepik.com/free-photo/autumn-leaf-falling-revealing-intricate-leaf-vein-generated-by-ai_188544-9869.jpg);">
                         </div>
                         <div class="login-wrap p-4 p-md-5">
                             <div class="d-flex">
