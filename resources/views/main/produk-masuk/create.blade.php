@@ -34,7 +34,8 @@
                     </label>
                     <div class="col-lg-11">
                         <input type="text" class="form-control tanggal_proses" name="tanggal_proses"
-                            id="tanggal_proses" placeholder="masukkan tanggal proses">
+                            id="tanggal_proses" placeholder="masukkan tanggal proses" value="{{ date('m/d/Y') }}"
+                            readonly>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -154,7 +155,7 @@
         );
     @endif
 
-    var currentDate = new Date();
+    /* var currentDate = new Date();
     $('#tanggal_proses').datepicker({
         format: 'mm/dd/yyyy',
         autoclose: true,
@@ -167,5 +168,5 @@
         if (this.value.match(/[^0-9]/g)) {
             this.value = this.value.replace(/[^0-9^-]/g, '');
         }
-    });
+    }); */
 </script>

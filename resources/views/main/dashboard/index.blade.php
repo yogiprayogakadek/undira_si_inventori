@@ -38,7 +38,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-8 div-profil" hidden>
+            <div class="col-7 div-profil" hidden>
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">
@@ -65,7 +65,7 @@
                 </div>
             </div>
 
-            <div class="col-8 div-password" hidden>
+            <div class="col-7 div-password" hidden>
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">

@@ -22,7 +22,6 @@ class DashboardController extends Controller
         try {
             $pengguna = Pengguna::find(auth()->user()->id);
 
-
             // kemudian save ke table pegawai
             $pengguna->update([
                 'nama' => $request->nama,
@@ -50,7 +49,7 @@ class DashboardController extends Controller
 
             if ($request->current_password != '') {
                 if (!password_verify($request->current_password, $pengguna->password)) {
-                    return redirect()->back()->with([
+                    return redirect()->route('dashboard.index')->with([
                         'status' => 'error',
                         'message' => 'Password lama tidak sesuai',
                         'title' => 'Gagal'

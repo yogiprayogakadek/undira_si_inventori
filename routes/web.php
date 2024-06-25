@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::namespace('Main')->middleware('auth')->group(function() {
+Route::post('/change-password', 'Main\DashboardController@updatePassword')->name('change.password');
+Route::namespace('Main')->middleware(['auth', 'checkPassword'])->group(function() {
     Route::get('/', 'DashboardController@index');
     Route::controller('DashboardController')
         ->prefix('/dashboard')

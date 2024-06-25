@@ -25,7 +25,7 @@ class UpdatePasswordRequest extends FormRequest
     {
         $rules = [
             'current_password' => 'required|min:8',
-            'new_password' => 'required|same:confirm_password|min:8',
+            'new_password' => 'required|same:confirm_password|not_in:12345678|min:8',
             'confirm_password' => 'required|same:new_password|min:8',
         ];
 
@@ -43,6 +43,7 @@ class UpdatePasswordRequest extends FormRequest
             'email' => ':attribute salah format',
             'same' => ':attribute tidak sama',
             'min' => ':attribute minimal :min karakter',
+            'new_password.not_in' => 'Mohon gunakan password lainnya'
         ];
     }
 
