@@ -22,7 +22,7 @@
                     </label>
                     <div class="col-lg-11">
                         <input type="text" class="form-control tanggal_request" name="tanggal_request"
-                            id="tanggal_request" placeholder="masukkan tanggal request" value={{date('m/d/Y')}} readonly>
+                            id="tanggal_request" placeholder="masukkan tanggal request" value="{{date('m/d/Y')}}" readonly>
                     </div>
                 </div>
                 <div class="form-group row">
