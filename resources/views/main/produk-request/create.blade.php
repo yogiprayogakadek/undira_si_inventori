@@ -22,7 +22,7 @@
                     </label>
                     <div class="col-lg-11">
                         <input type="text" class="form-control tanggal_request" name="tanggal_request"
-                            id="tanggal_request" placeholder="masukkan tanggal request">
+                            id="tanggal_request" placeholder="masukkan tanggal request" value={{date('m/d/Y')}} readonly>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -117,18 +117,18 @@
         );
     @endif
 
-    var currentDate = new Date();
-    $('#tanggal_request').datepicker({
-        format: 'mm/dd/yyyy',
-        autoclose: true,
-        endDate: "currentDate",
-        maxDate: currentDate
-    }).on('changeDate', function(ev) {
-        $(this).datepicker('hide');
-    });
-    $('#tanggal_request').keyup(function() {
-        if (this.value.match(/[^0-9]/g)) {
-            this.value = this.value.replace(/[^0-9^-]/g, '');
-        }
-    });
+    // var currentDate = new Date();
+    // $('#tanggal_request').datepicker({
+        //format: 'mm/dd/yyyy',
+        //autoclose: true,
+        //endDate: "currentDate",
+        //maxDate: currentDate
+   // }).on('changeDate', function(ev) {
+        //$(this).datepicker('hide');
+    //});
+    //$('#tanggal_request').keyup(function() {
+        //if (this.value.match(/[^0-9]/g)) {
+            //this.value = this.value.replace(/[^0-9^-]/g, '');
+        //}
+    //});
 </script>
