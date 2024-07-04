@@ -15,7 +15,7 @@
                     </div>
                 </div>
             </div>
-            <input type="hidden" name="id" id="id" value="{{ $produk->id }}">
+            <input type="hidden" name="produk_id" id="produk_id" value="{{ $produk->id }}">
             <div class="card-body">
                 <div class="form-group row">
                     <label for="nama" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">

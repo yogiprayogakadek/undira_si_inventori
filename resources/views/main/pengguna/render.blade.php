@@ -34,7 +34,12 @@
                     @foreach ($pengguna as $pengguna)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $pengguna->nama }}</td>
+                            <td>
+                                <a href="javascript:void(0)" class="forgot-password" data-id="{{ $pengguna->id }}"
+                                    data-username="{{ $pengguna->nama }}" data-toggle="tooltip"
+                                    title="Klik dua kali untuk mengubah kata sandi">
+                                    {{ $pengguna->nama }}
+                            </td>
                             <td>{{ $pengguna->username }}
                             </td>
                             <td>{{ $pengguna->level }}</td>
@@ -56,6 +61,42 @@
         </div>
     </div>
 </div>
+
+{{-- Modal password --}}
+<div class="modal fade" id="password-modal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+    aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">sm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formUpdate">
+                    <div class="form-group password mb-3">
+                        <input type="text" id="user-id" name="user_id" class="form-control" hidden>
+                        <label class="form-label" for="new_password">Password</label>
+                        <input type="text" name="new_password" class="form-control new_password" id="new_password"
+                            placeholder="masukkan password">
+                        <div class="invalid-feedback error-new_password"></div>
+                    </div>
+                    <div class="form-group password">
+                        <label class="form-label" for="confirm_password">Konfirmasi Password</label>
+                        <input type="text" name="confirm_password" class="form-control confirm_password"
+                            id="confirm_password" placeholder="masukkan ulang password">
+                        <div class="invalid-feedback error-confirm_password"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-outline btn-update-password mr-15">Simpan</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- End --}}
 
 <script>
     var table = $('#tableData').DataTable({
@@ -96,4 +137,78 @@
             cell.innerHTML = i + 1;
         });
     }).draw();
+
+    $('.forgot-password').on('dblclick', function() {
+        let username = $(this).data('username')
+        let id = $(this).data('id')
+        $('#password-modal').modal('show');
+        $('#password-modal .modal-title').html('Ubah Kata Sandi - <strong>' + username +
+            '</strong>');
+
+        // set id
+        $('#password-modal #user-id').val(id)
+    });
+
+    $("body").on("click", ".btn-update-password", function(e) {
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+        });
+        let form = $("#formUpdate")[0];
+        let data = new FormData(form);
+        $.ajax({
+            type: "POST",
+            url: "/pengguna/update-password",
+            data: data,
+            processData: false,
+            contentType: false,
+            cache: false,
+            beforeSend: function() {
+                $(".btn-update-password").html("Mohon tunggu...").prop('disabled',
+                    true);
+            },
+            done: function() {
+                $(".btn-update-password").html("Simpan").prop('disabled', false);
+            },
+            success: function(response) {
+                Swal.fire(response.title, response.message, response.status);
+                if (response.status == "success") {
+                    $('#password-modal').modal('hide');
+                }
+            },
+            error: function(error) {
+                let formName = [];
+                let errorName = [];
+
+                $.each($("#formUpdate").serializeArray(), function(i, field) {
+                    formName.push(field.name.replace(/\[|\]/g, ""));
+                });
+                if (error.status == 422) {
+                    if (error.responseJSON.errors) {
+                        $.each(error.responseJSON.errors, function(key, value) {
+                            console.log(value)
+                            errorName.push(key);
+                            $("#password-modal ." + key).addClass(
+                                "is-invalid");
+                            $("#password-modal .error-" + key).html(value);
+                        });
+
+                        $.each(formName, function(i, field) {
+                            if ($.inArray(field, errorName) == -1) {
+                                $("#password-modal ." + field).removeClass(
+                                    "is-invalid");
+                                // console.log(field)
+                                $("#password-modal .error-" + field).html('');
+                            } else {
+                                $("#password-modal ." + field).addClass(
+                                    "is-invalid");
+                            }
+                        });
+                    }
+                }
+                $(".btn-update-password").html("Simpan").prop('disabled', false);
+            },
+        });
+    });
 </script>

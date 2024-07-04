@@ -20,6 +20,7 @@ return new class extends Migration
             $table->json('data');
             $table->string('nama_customer', 100);
             $table->char('no_telp', 16);
+            $table->text('alamat');
             $table->date('tanggal_proses');
             $table->enum('jenis_pembayaran', ['cash', 'transfer']);
             $table->string('bukti_pembayaran');

@@ -21,9 +21,10 @@ class checkPassword
         $currentPassword = '12345678'; // The password to check against
 
         $pengguna = Pengguna::find(Auth::id());
-
-        if (Hash::check($currentPassword, $pengguna->password)) {
-            return response()->view('error.password-change', [], 403);
+        if($pengguna->level == 'staff') {
+            if (Hash::check($currentPassword, $pengguna->password)) {
+                return response()->view('error.password-change', [], 403);
+            }
         }
 
         return $next($request);

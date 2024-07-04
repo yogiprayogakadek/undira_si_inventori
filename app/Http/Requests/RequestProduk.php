@@ -5,14 +5,12 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 
-class ProdukRequest extends FormRequest
+class RequestProduk extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     *
-     * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -20,7 +18,7 @@ class ProdukRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules()
     {
@@ -32,7 +30,7 @@ class ProdukRequest extends FormRequest
             'harga_beli' => 'required|numeric',
             'harga_jual' => 'required|numeric',
         ];
-        if (Request::instance()->has('produk_id')) {
+        if (!Request::instance()->has('produk_id')) {
             $rules += [
                 'status' => 'nullable',
                 'foto' => 'required|mimes:jpeg,png,jpg|max:2048',

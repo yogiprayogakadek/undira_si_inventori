@@ -30,8 +30,11 @@ class ProdukKeluarController extends Controller
     public function create()
     {
         $supplier = Supplier::where('status', true)->get();
+        $produk = Produk::where('stok', '>', 0)
+                        ->where('status', true)
+                        ->get();
         $view = [
-            'data' => view('main.produk-keluar.create', compact('supplier'))->render(),
+            'data' => view('main.produk-keluar.create', compact('supplier', 'produk'))->render(),
         ];
 
         return response()->json($view);
@@ -46,6 +49,7 @@ class ProdukKeluarController extends Controller
                 'tanggal_proses' => date_format(date_create($request->tanggal_proses), 'Y-m-d'),
                 'nama_customer' => $request->nama_customer,
                 'no_telp' => $request->no_telp,
+                'alamat' => $request->alamat,
                 'jenis_pembayaran' => $request->jenis_pembayaran,
                 'kondisi_pasien' => $request->kondisi_pasien,
                 'pengguna_id' => auth()->user()->id
@@ -91,10 +95,13 @@ class ProdukKeluarController extends Controller
 
     public function edit($id)
     {
-        $produk = ProdukKeluar::find($id);
+        $keluar = ProdukKeluar::find($id);
+        $produk = Produk::where('stok', '>', 0)
+                        ->where('status', true)
+                        ->get();
         $view = [
-            'data' => view('main.produk-keluar.edit', compact('produk'))->render(),
-            'produk' => json_decode($produk->data, true)
+            'data' => view('main.produk-keluar.edit', compact('keluar', 'produk'))->render(),
+            'keluar' => json_decode($keluar->data, true),
         ];
 
         return response()->json($view);
@@ -113,6 +120,7 @@ class ProdukKeluarController extends Controller
                 'nama_customer' => $request->nama_customer,
                 'jenis_pembayaran' => $request->jenis_pembayaran,
                 'no_telp' => $request->no_telp,
+                'alamat' => $request->alamat,
                 'kondisi_pasien' => $request->kondisi_pasien,
                 'pengguna_id' => auth()->user()->id
             ];

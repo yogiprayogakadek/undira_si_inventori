@@ -191,7 +191,7 @@
         $('#print-modal').modal('show')
         $('#print-modal .kondisi').show()
         $('#print-modal .range-date').hide()
-        $('#print-modal .modal-title').text('Detail Kondisi Pasien');
+        $('#print-modal .modal-title').text('Keterangan');
         $('#print-modal .kondisi').html('<span>' + $(this).data('kondisi') + '</span>')
         $('.btn-search').hide()
         $('.btn-print-data').hide()

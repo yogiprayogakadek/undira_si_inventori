@@ -37,6 +37,8 @@ Route::namespace('Main')->middleware(['auth', 'checkPassword'])->group(function(
             Route::post('/store', 'store')->name('store');
             Route::post('/update', 'update')->name('update');
             Route::post('/print', 'print')->name('print');
+
+            Route::post('/update-password', 'updatePassword')->name('update.password');
         });
 
     Route::controller('SupplierController')

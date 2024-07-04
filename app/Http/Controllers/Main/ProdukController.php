@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProdukRequest;
+use App\Http\Requests\RequestProduk;
 use App\Models\Produk;
 use Illuminate\Http\Request;
 
@@ -34,7 +35,7 @@ class ProdukController extends Controller
         return response()->json($view);
     }
 
-    public function store(ProdukRequest $request)
+    public function store(RequestProduk $request)
     {
         // dd($request->all());
         try {
@@ -88,11 +89,11 @@ class ProdukController extends Controller
         return response()->json($view);
     }
 
-    public function update(ProdukRequest $request)
+    public function update(RequestProduk $request)
     {
-        // dd($request->all());
         try {
-            $produk = Produk::find($request->id);
+            $produk = Produk::find($request->produk_id);
+            // dd($produk);
 
             $data = [
                 'nama' => $request->nama,
@@ -126,10 +127,10 @@ class ProdukController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            return redirect()->back()->with([
+            return redirect()->route('produk.index')->with([
                 'status' => 'error',
-                // 'message' => $e->getMessage(),
-                'message' => 'Terjadi kesalahan',
+                'message' => $e->getMessage(),
+                // 'message' => 'Terjadi kesalahan',
                 'title' => 'Gagal'
             ]);
         }

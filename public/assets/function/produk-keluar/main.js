@@ -158,49 +158,81 @@ $(document).ready(function () {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
             },
         });
-        let no_telp = $('input[name=no_telp]').val();
-        let tanggal_proses = $('input[name=tanggal_proses]').val();
-        let jenis_pembayaran = $('.jenis_pembayaran').find(":selected").val();
-        let bukti_pembayaran = $('input[name=bukti_pembayaran]').val();
-        let form = $('#formAdd')[0]
-        let data = new FormData(form)
-        data.append('list_produk', localStorage.getItem('listProduk'))
-        if(tanggal_proses == '' || jenis_pembayaran == '' || bukti_pembayaran == '' || no_telp == '' || localStorage.length == 0 || JSON.parse(localStorage.getItem('listProduk'))[0]['data'].length == 0) {
-            Swal.fire('Warning', 'Mohon untuk melengkapi form', 'error');
-        } else {
-            $.ajax({
-                type: "POST",
-                url: "/produk-keluar/store",
-                // data: {
-                //     'tanggal_proses': tanggal_proses,
-                //     'nama_customer': nama_customer,
-                //     'no_telp': no_telp,
-                //     'list_produk': localStorage.getItem('listProduk'),
-                // },
-                data: data,
-                processData: false,
-                contentType: false,
-                cache: false,
-                beforeSend: function () {
-                    $(".btn-save").attr("disable", "disabled");
-                    $(".btn-save").html('<i class="fa fa-spin fa-spinner"></i>');
-                },
-                complete: function () {
-                    $(".btn-save").removeAttr("disable");
-                    $(".btn-save").html("Simpan");
-                },
-                success: function (response) {
-                    $("#formAdd").trigger("reset");
-                    $(".invalid-feedback").html("");
-                    Swal.fire(response.title, response.message, response.status);
-                    getData();
-                    localStorage.clear()
-                },
-                error: function (error) {
-                    //
-                },
-            });
-        }
+
+        // CREATE LOCALSTORAGE
+        localStorage.clear()
+        // Retrieve existing listProduk from localStorage or create an empty array
+        let listProduk = localStorage.getItem('listProduk') ? JSON.parse(localStorage.getItem(
+            'listProduk')) : [];
+        let dataArray = listProduk && Array.isArray(listProduk) ? listProduk : [];
+
+        let tempData = {
+            'data': []
+        };
+
+        $('.checkbox-produk:checked').each(function() {
+            let jumlah = $(this).closest('tr').find('input.jumlah-produk').val();
+            let produkId = $(this).data('id');
+            let namaProduk = $(this).data('nama');
+            let hargaBeli = $(this).data('beli');
+            let hargaJual = $(this).data('jual');
+
+            let data = {
+                'hargaBeli': parseInt(hargaBeli),
+                'hargaJual': parseInt(hargaJual),
+                'jumlah': parseInt(jumlah),
+                'produkId': parseInt(produkId),
+                'namaProduk': namaProduk,
+            };
+
+            tempData.data.push(data);
+        });
+
+        dataArray.push(tempData);
+
+        // Update the listProduk in localStorage
+        localStorage.setItem('listProduk', JSON.stringify(dataArray));
+        // END LOCALSTORAGE
+
+        setTimeout(() => {
+            let no_telp = $('input[name=no_telp]').val();
+            let tanggal_proses = $('input[name=tanggal_proses]').val();
+            let jenis_pembayaran = $('.jenis_pembayaran').find(":selected").val();
+            let bukti_pembayaran = $('input[name=bukti_pembayaran]').val();
+            let form = $('#formAdd')[0]
+            let data = new FormData(form)
+            data.append('list_produk', localStorage.getItem('listProduk'))
+            if(tanggal_proses == '' || jenis_pembayaran == '' || bukti_pembayaran == '' || no_telp == '' || localStorage.length == 0 || JSON.parse(localStorage.getItem('listProduk'))[0]['data'].length == 0) {
+                Swal.fire('Warning', 'Mohon untuk melengkapi form', 'error');
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "/produk-keluar/store",
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    beforeSend: function () {
+                        $(".btn-save").attr("disable", "disabled");
+                        $(".btn-save").html('<i class="fa fa-spin fa-spinner"></i>');
+                    },
+                    complete: function () {
+                        $(".btn-save").removeAttr("disable");
+                        $(".btn-save").html("Simpan");
+                    },
+                    success: function (response) {
+                        $("#formAdd").trigger("reset");
+                        $(".invalid-feedback").html("");
+                        Swal.fire(response.title, response.message, response.status);
+                        getData();
+                        localStorage.clear()
+                    },
+                    error: function (error) {
+                        //
+                    },
+                });
+            }
+        }, 1500);
     });
 
     // on update button
@@ -210,6 +242,42 @@ $(document).ready(function () {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
             },
         });
+
+        // CREATE LOCALSTORAGE
+        localStorage.clear()
+        // Retrieve existing listProduk from localStorage or create an empty array
+        let listProduk = localStorage.getItem('listProduk') ? JSON.parse(localStorage.getItem(
+            'listProduk')) : [];
+        let dataArray = listProduk && Array.isArray(listProduk) ? listProduk : [];
+
+        let tempData = {
+            'data': []
+        };
+
+        $('.checkbox-produk:checked').each(function() {
+            let jumlah = $(this).closest('tr').find('input.jumlah-produk').val();
+            let produkId = $(this).data('id');
+            let namaProduk = $(this).data('nama');
+            let hargaBeli = $(this).data('beli');
+            let hargaJual = $(this).data('jual');
+
+            let data = {
+                'hargaBeli': parseInt(hargaBeli),
+                'hargaJual': parseInt(hargaJual),
+                'jumlah': parseInt(jumlah),
+                'produkId': parseInt(produkId),
+                'namaProduk': namaProduk,
+            };
+
+            tempData.data.push(data);
+        });
+
+        dataArray.push(tempData);
+
+        // Update the listProduk in localStorage
+        localStorage.setItem('listProduk', JSON.stringify(dataArray));
+        // END LOCALSTORAGE
+
         let no_telp = $('input[name=no_telp]').val();
         let tanggal_proses = $('input[name=tanggal_proses]').val();
         let jenis_pembayaran = $('.jenis_pembayaran').find(":selected").val();
@@ -336,24 +404,25 @@ $(document).ready(function () {
 
         if(value == true){
             $('#jumlah-produk'+id).prop('disabled', false);
-
-            $('#jumlah-produk'+id).addClass('is-invalid');
-            $('.error-jumlah-'+id).html('mohon isi jumlah')
-            $('.btn-temp').attr('disabled', true)
+            if($('#jumlah-produk'+id).val() == '') {
+                $('#jumlah-produk'+id).addClass('is-invalid');
+                $('.error-jumlah-'+id).html('mohon isi jumlah')
+                $('.btn-send').attr('disabled', true)
+            }
         } else {
             $('#jumlah-produk'+id).prop('disabled', true);
 
             $('#jumlah-produk'+id).removeClass('is-invalid');
             $('.error-jumlah-'+id).html('')
-            $('.btn-temp').attr('disabled', false)
+            $('.btn-send').attr('disabled', false)
         }
 
         if($('body').find('.is-invalid').length) {
-            $('.btn-temp').attr('disabled', true)
+            $('.btn-send').attr('disabled', true)
         }
 
         if($('input:checkbox:checked').length == 0) {
-            $('.btn-temp').attr('disabled', true)
+            $('.btn-send').attr('disabled', true)
         }
     })
 
@@ -368,12 +437,12 @@ $(document).ready(function () {
         if(jumlah > stok || isNaN(jumlah)) {
             $('#jumlah-produk'+id).addClass('is-invalid');
             $('.error-jumlah-'+id).html('stok tidak mencukupi')
-            $('.btn-temp').attr('disabled', true)
+            $('.btn-send').attr('disabled', true)
         } else {
             $('#total-harga'+id).html(jumlah*hargaJual);
             $('#jumlah-produk'+id).removeClass('is-invalid');
             $('.error-jumlah-'+id).html('')
-            $('.btn-temp').attr('disabled', false)
+            $('.btn-send').attr('disabled', false)
         }
     })
 

@@ -11,23 +11,30 @@
     <link rel="stylesheet" href="https://preview.colorlib.com/theme/bootstrap/login-form-14/css/style.css">
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+    <style>
+        .login-image {
+            width: 50%;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+    </style>
 </head>
 
 <body>
-    <section style="margin-top: 2em">
+    <section style="margin-top: 4em">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-6 text-center">
                     <h2 class="heading-section">
-                        <img src="{{ asset('assets/images/logo.png') }}" style="width: 150px">
+                        {{-- <img src="{{ asset('assets/images/logo.png') }}" style="width: 150px"> --}}
                     </h2>
                 </div>
             </div>
             <div class="row justify-content-center">
                 <div class="col-md-12 col-lg-10">
                     <div class="wrap d-md-flex">
-                        <div class="img"
-                            style="background-image: url(https://img.freepik.com/free-photo/autumn-leaf-falling-revealing-intricate-leaf-vein-generated-by-ai_188544-9869.jpg);">
+                        <div class="login-image" style="background-image: url({{ asset('assets/images/logo.png') }});">
                         </div>
                         <div class="login-wrap p-4 p-md-5">
                             <div class="d-flex">

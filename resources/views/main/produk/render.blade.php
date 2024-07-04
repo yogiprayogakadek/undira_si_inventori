@@ -23,9 +23,13 @@
                 <thead>
                     <th>No</th>
                     <th>Nama Produk</th>
-                    <th>Harga Beli</th>
+                    @can('admin')
+                        <th>Harga Beli</th>
+                    @endcan
                     <th>Harga Jual</th>
-                    <th>Stok</th>
+                    @can('admin')
+                        <th>Stok</th>
+                    @endcan
                     {{-- <th>Jenis Produk</th> --}}
                     <th>Foto Produk</th>
                     <th>Keterangan</th>
@@ -39,9 +43,13 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $produk->nama }}</td>
-                            <td>{{ 'Rp ' . number_format($produk->harga_beli, 0, '.', '.') }}</td>
+                            @can('admin')
+                                <td>{{ 'Rp ' . number_format($produk->harga_beli, 0, '.', '.') }}</td>
+                            @endcan
                             <td>{{ 'Rp ' . number_format($produk->harga_jual, 0, '.', '.') }}</td>
-                            <td>{{ $produk->stok }}</td>
+                            @can('admin')
+                                <td>{{ $produk->stok }}</td>
+                            @endcan
                             {{-- <td>{{ $produk->jenis }}</td> --}}
                             {{-- <td>
                                 <img src="{{ asset($produk->foto) }}" width="100px">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PenggunaRequest;
+use App\Http\Requests\UpdatePasswordRequest;
 use App\Models\Pengguna;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -122,5 +123,29 @@ class PenggunaController extends Controller
         ];
 
         return response()->json($view);
+    }
+
+    public function updatePassword(UpdatePasswordRequest $request)
+    {
+        try {
+            // dd($request->all());
+            $user = Pengguna::where('id', $request->user_id)->first();
+            $user->update([
+                'password' => bcrypt($request->new_password)
+            ]);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Data berhasil disimpan',
+                'title' => 'Berhasil'
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                // 'message' => $e->getMessage(),
+                'message' => 'Terjadi kesalahan!',
+                'title' => 'Gagal'
+            ]);
+        }
     }
 }
