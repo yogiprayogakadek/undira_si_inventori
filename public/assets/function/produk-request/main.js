@@ -156,6 +156,38 @@ $(document).ready(function () {
             },
         });
         let tanggal_proses = $('input[name=tanggal_proses]').val();
+
+        // CREATE LOCALSTORAGE
+        localStorage.clear()
+        // Retrieve existing listProduk from localStorage or create an empty array
+        let listProduk = localStorage.getItem('listProduk') ? JSON.parse(localStorage.getItem(
+            'listProduk')) : [];
+        let dataArray = listProduk && Array.isArray(listProduk) ? listProduk : [];
+
+        let tempData = {
+            'data': []
+        };
+
+        $('.checkbox-produk:checked').each(function() {
+            let jumlah = $(this).closest('tr').find('input.jumlah-produk').val();
+            let produkId = $(this).data('id');
+            let namaProduk = $(this).data('nama');
+
+            let data = {
+                'jumlah': parseInt(jumlah),
+                'produkId': parseInt(produkId),
+                'namaProduk': namaProduk,
+            };
+
+            tempData.data.push(data);
+        });
+
+        dataArray.push(tempData);
+
+        // Update the listProduk in localStorage
+        localStorage.setItem('listProduk', JSON.stringify(dataArray));
+        // END LOCALSTORAGE
+
         if(tanggal_proses == '' || localStorage.length == 0 || JSON.parse(localStorage.getItem('listProduk'))[0]['data'].length == 0) {
             Swal.fire('Warning', 'Mohon untuk melengkapi form', 'error');
         } else {
@@ -201,6 +233,38 @@ $(document).ready(function () {
             },
         });
         let tanggal_proses = $('input[name=tanggal_proses]').val();
+
+        // CREATE LOCALSTORAGE
+        localStorage.clear()
+        // Retrieve existing listProduk from localStorage or create an empty array
+        let listProduk = localStorage.getItem('listProduk') ? JSON.parse(localStorage.getItem(
+            'listProduk')) : [];
+        let dataArray = listProduk && Array.isArray(listProduk) ? listProduk : [];
+
+        let tempData = {
+            'data': []
+        };
+
+        $('.checkbox-produk:checked').each(function() {
+            let jumlah = $(this).closest('tr').find('input.jumlah-produk').val();
+            let produkId = $(this).data('id');
+            let namaProduk = $(this).data('nama');
+
+            let data = {
+                'jumlah': parseInt(jumlah),
+                'produkId': parseInt(produkId),
+                'namaProduk': namaProduk,
+            };
+
+            tempData.data.push(data);
+        });
+
+        dataArray.push(tempData);
+
+        // Update the listProduk in localStorage
+        localStorage.setItem('listProduk', JSON.stringify(dataArray));
+        // END LOCALSTORAGE
+
         if(tanggal_proses == '' || localStorage.length == 0 || JSON.parse(localStorage.getItem('listProduk'))[0]['data'].length == 0) {
             Swal.fire('Warning', 'Mohon untuk melengkapi form', 'error');
         } else {
@@ -315,23 +379,25 @@ $(document).ready(function () {
         if(value == true){
             $('#jumlah-produk'+id).prop('disabled', false);
 
-            $('#jumlah-produk'+id).addClass('is-invalid');
-            $('.error-jumlah-'+id).html('mohon isi jumlah produk')
-            $('.btn-temp').attr('disabled', true)
+            if($('#jumlah-produk'+id).val() == '') {
+                $('#jumlah-produk'+id).addClass('is-invalid');
+                $('.error-jumlah-'+id).html('mohon isi jumlah')
+                $('.btn-send').attr('disabled', true)
+            }
         } else {
             $('#jumlah-produk'+id).prop('disabled', true);
 
             $('#jumlah-produk'+id).removeClass('is-invalid');
             $('.error-jumlah-'+id).html('')
-            $('.btn-temp').attr('disabled', false)
+            $('.btn-send').attr('disabled', false)
         }
 
         if($('body').find('.is-invalid').length) {
-            $('.btn-temp').attr('disabled', true)
+            $('.btn-send').attr('disabled', true)
         }
 
         if($('input:checkbox:checked').length == 0) {
-            $('.btn-temp').attr('disabled', true)
+            $('.btn-send').attr('disabled', true)
         }
     })
 
@@ -344,11 +410,11 @@ $(document).ready(function () {
         if(isNaN(jumlah) || jumlah === '') {
             $('#jumlah-produk'+id).addClass('is-invalid');
             $('.error-jumlah-'+id).html('mohon isi jumlah produk')
-            $('.btn-temp').attr('disabled', true)
+            $('.btn-send').attr('disabled', true)
         } else {
             $('#jumlah-produk'+id).removeClass('is-invalid');
             $('.error-jumlah-'+id).html('')
-            $('.btn-temp').attr('disabled', false)
+            $('.btn-send').attr('disabled', false)
         }
     })
 

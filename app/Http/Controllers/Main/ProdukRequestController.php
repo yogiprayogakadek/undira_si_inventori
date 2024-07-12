@@ -30,8 +30,10 @@ class ProdukRequestController extends Controller
 
     public function create()
     {
+        $produk = Produk::where('status', true)
+                        ->get();
         $view = [
-            'data' => view('main.produk-request.create')->render(),
+            'data' => view('main.produk-request.create', compact('produk'))->render(),
         ];
 
         return response()->json($view);
@@ -66,10 +68,12 @@ class ProdukRequestController extends Controller
 
     public function edit($id)
     {
-        $produk = ProdukRequest::find($id);
+        $req = ProdukRequest::find($id);
+        $produk = Produk::where('status', true)
+                        ->get();
         $view = [
-            'data' => view('main.produk-request.edit', compact(['produk']))->render(),
-            'produk' => json_decode($produk->data, true)
+            'data' => view('main.produk-request.edit', compact(['req', 'produk']))->render(),
+            'req' => json_decode($req->data, true)
         ];
 
         return response()->json($view);

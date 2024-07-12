@@ -61,6 +61,54 @@
                 </div>
                 <div class="form-group row">
                     <label for="btn-search" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">
+                        List Produk
+                    </label>
+                    <div class="col-lg-11">
+                        {{-- <button type="button" class="btn btn-primary btn-search" id="btn-search">
+                            <i class="fa fa-search"></i> Cari
+                        </button> --}}
+
+                        <table class="table table-bordered" id="modalTable">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Nama Produk</th>
+                                    <th>Harga Beli</th>
+                                    <th>Jumlah</th>
+                                    <th>Total Harga</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($produk as $produk)
+                                    <tr>
+                                        <td class="text-center">
+                                            <input type="checkbox" class="checkbox-secondary checkbox-produk"
+                                                id="checkbox{{ $produk->id }}" name="list[]"
+                                                data-id="{{ $produk->id }}" data-nama="{{ $produk->nama }}"
+                                                data-beli="{{ $produk->harga_beli }}"
+                                                data-jual="{{ $produk->harga_jual }}">
+                                        </td>
+                                        <td>{{ $produk->nama }}</td>
+                                        <td>{{ $produk->harga_beli }}</td>
+                                        <td>
+                                            <input class="form-control jumlah-produk" disabled=true
+                                                id="jumlah-produk{{ $produk->id }}" data-id="{{ $produk->id }}"
+                                                data-stok="{{ $produk->stok }}" name="jumlah-produk[]"
+                                                data-beli="{{ $produk->harga_beli }}"
+                                                data-jual="{{ $produk->harga_jual }}">
+                                            <div class="invalid-feedback error-jumlah-{{ $produk->id }}"></div>
+                                        </td>
+                                        <td>
+                                            <span id="total-harga{{ $produk->id }}">0</span>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {{-- <div class="form-group row">
+                    <label for="btn-search" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">
                         Data Produk
                     </label>
                     <div class="col-lg-11">
@@ -68,8 +116,8 @@
                             <i class="fa fa-search"></i> Cari
                         </button>
                     </div>
-                </div>
-                <div class="form-group row">
+                </div> --}}
+                <div class="form-group row" hidden>
                     <div class="col-lg-1"></div>
                     <div class="col-lg-11">
                         {{-- <h3 class="text-center">List Produk</h3> --}}
@@ -101,7 +149,8 @@
                 <div class="mc-footer">
                     <div class="row">
                         <div class="col-lg-12">
-                            <button type="button" class="btn  btn-primary m-1 btn-save">Simpan</button>
+                            <button type="button" class="btn  btn-primary m-1 btn-save btn-send"
+                                disabled="true">Simpan</button>
                             <button type="button" class="btn btn-outline-secondary m-1 btn-data">Batal</button>
                         </div>
                     </div>
@@ -112,7 +161,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="modalProduk" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+{{-- <div class="modal fade" id="modalProduk" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -143,7 +192,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 
 <script>
@@ -154,6 +203,35 @@
             "{{ session('status') }}",
         );
     @endif
+
+    var table = $('#modalTable').DataTable({
+        language: {
+            paginate: {
+                previous: "Previous",
+                next: "Next"
+            },
+            info: "Showing _START_ to _END_ from _TOTAL_ data",
+            infoEmpty: "Showing 0 to 0 from 0 data",
+            lengthMenu: "Showing _MENU_ data",
+            search: "Search:",
+            emptyTable: "Data doesn't exists",
+            zeroRecords: "Data doesn't match",
+            loadingRecords: "Loading..",
+            processing: "Processing...",
+            infoFiltered: "(filtered from _MAX_ total data)"
+        },
+        lengthMenu: [
+            [100, 200, 300, 400, -1],
+            [100, 200, 300, 400, "All"]
+        ],
+        // order: [
+        //     [0, 'desc']
+        // ],
+        // "rowCallback": function(row, data, index) {
+        //     // Set the row number as the first cell in each row
+        //     $('td:eq(0)', row).html(index + 1);
+        // }
+    });
 
     /* var currentDate = new Date();
     $('#tanggal_proses').datepicker({

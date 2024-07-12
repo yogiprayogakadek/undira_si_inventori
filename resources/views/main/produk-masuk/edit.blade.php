@@ -17,7 +17,7 @@
             </div>
             <div class="card-body">
                 <input type="hidden" name="produk_masuk_id" id="id" class="form-control produk-keluar-id"
-                    value="{{ $produk->id }}">
+                    value="{{ $masuk->id }}">
                 <div class="form-group row">
                     <label for="nama" class="ul-form__label ul-form--margin col-lg-1   col-form-label ">
                         Nama
@@ -26,7 +26,7 @@
                         <select name="supplier_id" id="supplier_id" class="form-control supplier-id">
                             @foreach ($supplier as $supplier)
                                 <option value="{{ $supplier->id }}"
-                                    {{ $produk->supplier_id == $supplier->id ? 'selected' : '' }}>{{ $supplier->nama }}
+                                    {{ $masuk->supplier_id == $supplier->id ? 'selected' : '' }}>{{ $supplier->nama }}
                                 </option>
                             @endforeach
                         </select>
@@ -39,7 +39,7 @@
                     <div class="col-lg-11">
                         <input type="text" class="form-control tanggal_proses" name="tanggal_proses"
                             id="tanggal_proses" placeholder="masukkan tanggal proses"
-                            value="{{ date_format(date_create($produk->tanggal_proses), 'm/d/Y') }}" readonly>
+                            value="{{ date_format(date_create($masuk->tanggal_proses), 'm/d/Y') }}" readonly>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -49,9 +49,9 @@
                     <div class="col-lg-11">
                         <select name="jenis_pembayaran" id="jenis_pembayaran" class="form-control jenis_pembayaran">
                             <option value="">Pilih jenis pembayaran...</option>
-                            <option value="cash" {{ $produk->jenis_pembayaran == 'cash' ? 'selected' : '' }}>Cash
+                            <option value="cash" {{ $masuk->jenis_pembayaran == 'cash' ? 'selected' : '' }}>Cash
                             </option>
-                            <option value="transfer" {{ $produk->jenis_pembayaran == 'transfer' ? 'selected' : '' }}>
+                            <option value="transfer" {{ $masuk->jenis_pembayaran == 'transfer' ? 'selected' : '' }}>
                                 Transfer</option>
                         </select>
                     </div>
@@ -68,6 +68,57 @@
                 </div>
                 <div class="form-group row">
                     <label for="btn-search" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">
+                        List Produk
+                    </label>
+                    <div class="col-lg-11">
+                        {{-- <button type="button" class="btn btn-primary btn-search" id="btn-search">
+                            <i class="fa fa-search"></i> Cari
+                        </button> --}}
+
+                        <table class="table table-bordered" id="modalTable">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Nama Produk</th>
+                                    <th>Harga Beli</th>
+                                    <th>Jumlah</th>
+                                    <th>Total Harga</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($produk as $produk)
+                                    <tr>
+                                        <td class="text-center">
+                                            <input type="checkbox" class="checkbox-produk"
+                                                id="checkbox{{ $produk->id }}" name="list[]"
+                                                data-id="{{ $produk->id }}" data-nama="{{ $produk->nama }}"
+                                                data-beli="{{ $produk->harga_beli }}"
+                                                data-jual="{{ $produk->harga_jual }}"
+                                                {{ checkedData($masuk->data, $produk->id)['checked'] }}>
+                                        </td>
+                                        <td>{{ $produk->nama }}</td>
+                                        <td>{{ $produk->harga_beli }}</td>
+                                        <td>
+                                            <input class="form-control jumlah-produk"
+                                                {{ checkedData($masuk->data, $produk->id)['checked'] == 'checked' ? '' : 'disabled' }}
+                                                id="jumlah-produk{{ $produk->id }}" data-id="{{ $produk->id }}"
+                                                data-stok="{{ $produk->stok }}" name="jumlah-produk[]"
+                                                data-beli="{{ $produk->harga_beli }}"
+                                                data-jual="{{ $produk->harga_jual }}"
+                                                value="{{ checkedData($masuk->data, $produk->id, 'jumlah')['data'] }}">
+                                            <div class="invalid-feedback error-jumlah-{{ $produk->id }}"></div>
+                                        </td>
+                                        <td>
+                                            <span id="total-harga{{ $produk->id }}">0</span>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {{-- <div class="form-group row">
+                    <label for="btn-search" class="ul-form__label ul-form--margin col-lg-1 col-form-label ">
                         Data Produk
                     </label>
                     <div class="col-lg-11">
@@ -75,8 +126,8 @@
                             <i class="fa fa-search"></i> Cari
                         </button>
                     </div>
-                </div>
-                <div class="form-group row">
+                </div> --}}
+                <div class="form-group row" hidden>
                     <div class="col-lg-1"></div>
                     <div class="col-lg-11">
                         {{-- <h3 class="text-center">List Produk</h3> --}}
@@ -92,7 +143,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (json_decode($produk->data, true) as $item)
+                                @foreach (json_decode($masuk->data, true) as $item)
                                     <tr>
                                         <td width="5%">{{ $loop->iteration }}</td>
                                         <td>{{ $item['namaProduk'] }}</td>
@@ -114,7 +165,7 @@
                 <div class="mc-footer">
                     <div class="row">
                         <div class="col-lg-12">
-                            <button type="button" class="btn  btn-primary m-1 btn-update">Simpan</button>
+                            <button type="button" class="btn btn-primary m-1 btn-update btn-send">Simpan</button>
                             <button type="button" class="btn btn-outline-secondary m-1 btn-data">Batal</button>
                         </div>
                     </div>
@@ -125,7 +176,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="modalProduk" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+{{-- <div class="modal fade" id="modalProduk" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -156,7 +207,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 <script>
     @if (session('status'))
@@ -166,6 +217,35 @@
             "{{ session('status') }}",
         );
     @endif
+
+    var table = $('#modalTable').DataTable({
+        language: {
+            paginate: {
+                previous: "Previous",
+                next: "Next"
+            },
+            info: "Showing _START_ to _END_ from _TOTAL_ data",
+            infoEmpty: "Showing 0 to 0 from 0 data",
+            lengthMenu: "Showing _MENU_ data",
+            search: "Search:",
+            emptyTable: "Data doesn't exists",
+            zeroRecords: "Data doesn't match",
+            loadingRecords: "Loading..",
+            processing: "Processing...",
+            infoFiltered: "(filtered from _MAX_ total data)"
+        },
+        lengthMenu: [
+            [100, 200, 300, 400, -1],
+            [100, 200, 300, 400, "All"]
+        ],
+        // order: [
+        //     [0, 'desc']
+        // ],
+        // "rowCallback": function(row, data, index) {
+        //     // Set the row number as the first cell in each row
+        //     $('td:eq(0)', row).html(index + 1);
+        // }
+    });
 
     // var currentDate = new Date();
     // $('#tanggal_proses').datepicker({

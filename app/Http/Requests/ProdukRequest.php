@@ -25,7 +25,8 @@ class ProdukRequest extends FormRequest
     public function rules()
     {
         $rules =  [
-            'nama' => "required|string|max:50|min:3|unique:produk,nama,{$this->id}",
+            'nama' => "required|string|max:50|min:3",
+            // 'nama' => "required|string|max:50|min:3|unique:produk,nama,{$this->id}",
             'keterangan' => 'required',
             // 'jenis' => 'required',
             'stok' => 'required|numeric',

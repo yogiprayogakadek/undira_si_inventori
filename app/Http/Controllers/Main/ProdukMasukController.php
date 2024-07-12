@@ -29,8 +29,10 @@ class ProdukMasukController extends Controller
     public function create()
     {
         $supplier = Supplier::where('status', true)->get();
+        $produk = Produk::where('status', true)
+                        ->get();
         $view = [
-            'data' => view('main.produk-masuk.create', compact('supplier'))->render(),
+            'data' => view('main.produk-masuk.create', compact('supplier', 'produk'))->render(),
         ];
 
         return response()->json($view);
@@ -87,11 +89,13 @@ class ProdukMasukController extends Controller
 
     public function edit($id)
     {
-        $produk = ProdukMasuk::find($id);
+        $masuk = ProdukMasuk::find($id);
+        $produk = Produk::where('status', true)
+                        ->get();
         $supplier = Supplier::all();
         $view = [
-            'data' => view('main.produk-masuk.edit', compact(['supplier', 'produk']))->render(),
-            'produk' => json_decode($produk->data, true)
+            'data' => view('main.produk-masuk.edit', compact(['supplier', 'masuk', 'produk']))->render(),
+            'masuk' => json_decode($masuk->data, true)
         ];
 
         return response()->json($view);
