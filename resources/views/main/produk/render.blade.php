@@ -12,7 +12,7 @@
                     </button>
                     @can('admin')
                         <button type="button" class="btn btn-outline-primary btn-add">
-                            <i class="nav-icon i-Pen-2 font-weight-bold"></i> Tambah
+                            <i class="nav-icon fa fa-plus font-weight-bold"></i> Tambah
                         </button>
                     @endcan
                 </div>

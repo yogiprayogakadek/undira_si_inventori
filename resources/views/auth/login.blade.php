@@ -77,9 +77,9 @@
                                             <span class="checkmark"></span>
                                         </label> --}}
                                     </div>
-                                    <div class="w-50 text-md-right">
+                                    {{-- <div class="w-50 text-md-right">
                                         <a href="javascript::void(0)" class="forget-password">Forgot Password</a>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </form>
                             {{-- <p class="text-center">Not a member? <a data-toggle="tab" href="#signup">Sign Up</a></p> --}}
