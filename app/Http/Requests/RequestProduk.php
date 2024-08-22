@@ -9,8 +9,10 @@ class RequestProduk extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
+     *
+     * @return bool
      */
-    public function authorize(): bool
+    public function authorize()
     {
         return true;
     }
@@ -18,12 +20,13 @@ class RequestProduk extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array
      */
     public function rules()
     {
         $rules =  [
-            'nama' => "required|string|max:50|min:3|unique:produk,nama,{$this->id}",
+            'nama' => "required|string|max:50|min:3",
+            // 'nama' => "required|string|max:50|min:3|unique:produk,nama,{$this->id}",
             'keterangan' => 'required',
             // 'jenis' => 'required',
             'stok' => 'required|numeric',

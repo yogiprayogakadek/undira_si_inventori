@@ -33,15 +33,15 @@ class ProdukRequest extends FormRequest
             'harga_beli' => 'required|numeric',
             'harga_jual' => 'required|numeric',
         ];
-        if (Request::instance()->has('produk_id')) {
+        if (!Request::instance()->has('produk_id')) {
             $rules += [
                 'status' => 'nullable',
-                'foto' => 'required|mimes:jpeg,png,jpg|max:2048',
+                // 'foto' => 'required|mimes:jpeg,png,jpg|max:2048',
             ];
         } else {
             $rules += [
                 'status' => 'required',
-                'foto' => 'nullable|mimes:jpeg,png,jpg|max:2048',
+                // 'foto' => 'nullable|mimes:jpeg,png,jpg|max:2048',
             ];
         }
 

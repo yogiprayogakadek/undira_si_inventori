@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
 use App\Http\Requests\ProdukRequest;
 use App\Http\Requests\RequestProduk;
 use App\Models\Produk;
@@ -35,7 +36,7 @@ class ProdukController extends Controller
         return response()->json($view);
     }
 
-    public function store(RequestProduk $request)
+    public function store(ProdukRequest $request)
     {
         // dd($request->all());
         try {
@@ -59,6 +60,9 @@ class ProdukController extends Controller
 
                 $foto->move($savePath, $fileName);
                 $produk['foto'] = $savePath . '/' . $fileName;
+            } else {
+                $savePath = 'assets/images/emptyImage.jpg';
+                $produk['foto'] = $savePath;
             }
 
             Produk::create($produk);
@@ -89,7 +93,7 @@ class ProdukController extends Controller
         return response()->json($view);
     }
 
-    public function update(RequestProduk $request)
+    public function update(ProdukRequest $request)
     {
         try {
             $produk = Produk::find($request->produk_id);
