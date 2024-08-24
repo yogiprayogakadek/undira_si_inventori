@@ -63,6 +63,14 @@
                 </a>
                 <div class="triangle"></div>
             </li>
+
+            <li class="nav-item {{ Request::is('laporan') ? 'active' : '' }}">
+                <a class="nav-item-hold" href="{{ route('laporan.index') }}">
+                    <i class="nav-icon i-Download"></i>
+                    <span class="nav-text">Laporan</span>
+                </a>
+                <div class="triangle"></div>
+            </li>
         </div>
     </div>
     <div class="sidebar-overlay"></div>

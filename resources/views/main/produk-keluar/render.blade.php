@@ -28,7 +28,7 @@
                     <th>No. Telp</th>
                     <th>Jenis Pembayaran</th>
                     <th>Bukti Pembayaran</th>
-                    <th>Kondisi Pasien</th>
+                    <th>Keterangan</th>
                     <th>Data Produk</th>
                     @cannot('admin')
                         <th>Aksi</th>

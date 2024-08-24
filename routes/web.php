@@ -118,6 +118,15 @@ Route::namespace('Main')->middleware(['auth', 'checkPassword'])->group(function(
             Route::get('/data-produk-request/{id}', 'dataRequest')->name('data-produk-request');
             Route::post('/update-status', 'updateStatus')->name('update-status');
         });
+
+        Route::controller('LaporanController')
+        ->prefix('/laporan')
+        ->name('laporan.')
+        ->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::post('/render', 'render')->name('render');
+            Route::post('/print', 'print')->name('print');
+        });
 });
 
 Auth::routes();
