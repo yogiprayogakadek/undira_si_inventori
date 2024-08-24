@@ -112,13 +112,14 @@
                     },
                     success: function(response) {
                         $(".render").html(response.data);
+                        $('#print-modal').modal('hide')
                         toastr.options = {
                             "closeButton": true,
                             "progressBar": true
                         }
                         toastr.info(
                             "Untuk menampilkan data lengkap, silahkan pilih menu pada masing-masing data yang ingin ditampilkan"
-                            );
+                        );
                     },
                     error: function(error) {
                         console.log("Error", error);
